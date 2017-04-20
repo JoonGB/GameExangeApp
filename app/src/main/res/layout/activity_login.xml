@@ -27,11 +27,6 @@
         android:id="@+id/user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-12dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
         android:hint="Correo electrónico"
         android:padding="18dp"
         android:textColor="@android:color/white"
@@ -47,7 +42,7 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="280dp"
+        android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:hint="Contraseña"
@@ -62,17 +57,17 @@
         tools:layout_conversion_absoluteY="323dp"
         android:layout_marginRight="32dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="120dp"
-        app:layout_constraintBottom_toTopOf="@+id/button" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginBTN"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:background="@android:color/background_light"
         android:elevation="0dp"
         android:text="Login"
@@ -82,5 +77,36 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="110dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/loginBTN"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteX="23dp"
+        tools:layout_editor_absoluteY="372dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="¿No tienes una cuenta?" />
+
+        <TextView
+            android:id="@+id/registerBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:text="Registrate"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

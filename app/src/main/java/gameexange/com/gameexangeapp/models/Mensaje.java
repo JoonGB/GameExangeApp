@@ -1,4 +1,4 @@
-package gameexange.com.gameexangeapp.model;
+package gameexange.com.gameexangeapp.models;
 
 public class Mensaje {
 

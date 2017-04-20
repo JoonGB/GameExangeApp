@@ -1,6 +1,6 @@
-package gameexange.com.gameexangeapp.model;
+package gameexange.com.gameexangeapp.models;
 
-import gameexange.com.gameexangeapp.model.enumeration.Genero;
+import gameexange.com.gameexangeapp.models.enumeration.Genero;
 
 public class UserExt {
 
