@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import gameexange.com.gameexangeapp.controllers.services.ProductoService;
 import gameexange.com.gameexangeapp.models.Foto;
@@ -22,7 +23,7 @@ public class ProductoManager {
     private Producto producto;
     private Retrofit retrofit;
     private ProductoService productoService;
-    private Foto foto;
+    private Map<Producto, Foto> fotosProductos;
 
     private ProductoManager() {
         retrofit = new Retrofit.Builder()
@@ -172,29 +173,28 @@ public class ProductoManager {
         });
     }
 
-    public synchronized void getFotoByProducto(final ProductoCallback productoCallback, Long idproducto) {
-        Call<Foto> call = productoService.getFotoByProducto(LoginManager.getInstance().getBearerToken(), idproducto);
+    public synchronized void getAllProductosWithFoto(final ProductoCallback productoCallback) {
+        Call<Map<Producto, Foto>> call = productoService.getAllProductosWithFoto(LoginManager.getInstance().getBearerToken());
 
-        call.enqueue(new Callback<Foto>() {
+        call.enqueue(new Callback<Map<Producto, Foto>>() {
             @Override
-            public void onResponse(Call<Foto> call, Response<Foto> response) {
-                foto = response.body();
-
+            public void onResponse(Call<Map<Producto, Foto>> call, Response<Map<Producto, Foto>> response) {
+                fotosProductos = response.body();
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccessFoto(foto);
+                    productoCallback.onSuccess(fotosProductos);
+
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
             }
 
             @Override
-            public void onFailure(Call<Foto> call, Throwable t) {
+            public void onFailure(Call<Map<Producto, Foto>> call, Throwable t) {
                 Log.e("ProductoManager->", t.toString());
                 productoCallback.onFailure(t);
             }
-
         });
     }
 }

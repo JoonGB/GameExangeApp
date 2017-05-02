@@ -52,18 +52,6 @@ public class ProductoActivity extends AppCompatActivity implements ProductoCallb
         Log.e("ProductoActivity->", "getProductosBy->onFailure ERROR " + t.getMessage());
     }
 
-    @Override
-    public void onSuccessFoto(Object foto) {
-        fotoProducto = (Foto) foto;
-
-        setContentView(R.layout.activity_products);
-        productosGrid = (GridView) findViewById(R.id.grid1);
-
-        CatalogAdapter adapter = new CatalogAdapter(this, productos);
-        productosGrid.setAdapter(adapter);
-
-    }
-
     public class CatalogAdapter extends BaseAdapter {
 
         private Context context;

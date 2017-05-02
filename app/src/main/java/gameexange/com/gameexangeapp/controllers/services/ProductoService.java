@@ -2,6 +2,7 @@ package gameexange.com.gameexangeapp.controllers.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
@@ -39,11 +40,11 @@ public interface ProductoService {
             @Path("fmax") Date fmax
     );
 
-    @GET("/api/home/productos/{idproducto}/foto")
-    Call<Foto> getFotoByProducto(
-            @Header("Authorization") String Authorization,
-            @Path("idproducto") Long idproducto
+    @GET("/api/home/productos/foto")
+    Call<Map<Producto, Foto>> getAllProductosWithFoto(
+            @Header("Authorization") String Authorization
     );
+
 
     /*
     @POST("api/productos")
