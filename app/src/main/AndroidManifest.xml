@@ -27,7 +27,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.activitites.ProductoActivity">
+        <activity android:name=".controllers.activitites.ProductoListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

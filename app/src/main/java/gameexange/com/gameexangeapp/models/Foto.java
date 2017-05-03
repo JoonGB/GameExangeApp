@@ -6,7 +6,7 @@ public class Foto {
     private String nombre;
     private String descripcion;
     private String creado;
-    private byte[] foto;
+    private String foto;
     private String fotoContentType;
     private Producto producto;
 
@@ -50,14 +50,14 @@ public class Foto {
         this.creado = creado;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
-    public Foto foto(byte[] foto) {
+    public Foto foto(String foto) {
         this.foto = foto;
         return this;
     }
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
