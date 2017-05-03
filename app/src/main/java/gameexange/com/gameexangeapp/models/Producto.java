@@ -14,6 +14,7 @@ public class Producto {
     private User usuario;
     private Set<Foto> fotos = new HashSet<>();
     private Set<Venta> ventas = new HashSet<>();
+    private Foto fotoPrincipal;
 
     public Long getId() {
         return id;
@@ -130,6 +131,13 @@ public class Producto {
         this.ventas = ventas;
     }
 
+    public Foto getFotoPrincipal() {
+        return fotoPrincipal;
+    }
+
+    public void setFotoPrincipal(Foto fotoPrincipal) {
+        this.fotoPrincipal = fotoPrincipal;
+    }
 
     @Override
     public String toString() {

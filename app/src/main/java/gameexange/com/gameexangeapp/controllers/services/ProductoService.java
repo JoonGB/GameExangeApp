@@ -16,6 +16,11 @@ public interface ProductoService {
             @Header("Authorization") String Authorization
     );
 
+    @GET("api/productosdto")
+    Call<List<Producto>> getAllProductosDTO(
+            @Header("Authorization") String Authorization
+    );
+
     @GET("/api/productos/byCategoria/{categoria}")
     Call<List<Producto>> getProductosByCategoria(
             @Header("Authorization") String Authorization,
@@ -40,9 +45,16 @@ public interface ProductoService {
             @Path("fmax") Date fmax
     );
 
-    @GET("/api/home/productos/foto")
-    Call<Map<Producto, Foto>> getAllProductosWithFoto(
-            @Header("Authorization") String Authorization
+    @GET("/api/producto/{id}/fotos")
+    Call<List<Foto>> getFotos(
+            @Header("Authorization") String Authorization,
+            @Path("id") Long id
+    );
+
+    @GET("/api/producto/{id}/fotoPrincipal")
+    Call<Foto> getFotoPrincipal(
+            @Header("Authorization") String Authorization,
+            @Path("id") Long id
     );
 
 

@@ -23,7 +23,8 @@ public class ProductoManager {
     private Producto producto;
     private Retrofit retrofit;
     private ProductoService productoService;
-    private Map<Producto, Foto> fotosProductos;
+    private List<Foto> fotosProductos;
+    private Foto fotoPrincipal;
 
     private ProductoManager() {
         retrofit = new Retrofit.Builder()
@@ -31,7 +32,7 @@ public class ProductoManager {
                 .addConverterFactory(GsonConverterFactory.create())
 
                 .build();
-        productoService = retrofit.create(ProductoService.class);
+        productoService = retrofit. create(ProductoService.class);
     }
 
     public static ProductoManager getInstance() {
@@ -46,6 +47,31 @@ public class ProductoManager {
     /* GET - GET ALL TEAMS */
     public synchronized void getAllProductos(final ProductoCallback productoCallback) {
         Call<List<Producto>> call = productoService.getAllProductos(LoginManager.getInstance().getBearerToken());
+
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                productos = response.body();
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productoCallback.onSuccess(productos);
+
+                } else {
+                    productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Log.e("ProductoManager->", t.toString());
+                productoCallback.onFailure(t);
+            }
+        });
+    }
+
+    public synchronized void getAllProductosDTO(final ProductoCallback productoCallback) {
+        Call<List<Producto>> call = productoService.getAllProductosDTO(LoginManager.getInstance().getBearerToken());
 
         call.enqueue(new Callback<List<Producto>>() {
             @Override
@@ -173,17 +199,17 @@ public class ProductoManager {
         });
     }
 
-    public synchronized void getAllProductosWithFoto(final ProductoCallback productoCallback) {
-        Call<Map<Producto, Foto>> call = productoService.getAllProductosWithFoto(LoginManager.getInstance().getBearerToken());
+    public synchronized void getFotos(final ProductoCallback productoCallback, Long id) {
+        Call<List<Foto>> call = productoService.getFotos(LoginManager.getInstance().getBearerToken(), id);
 
-        call.enqueue(new Callback<Map<Producto, Foto>>() {
+        call.enqueue(new Callback<List<Foto>>() {
             @Override
-            public void onResponse(Call<Map<Producto, Foto>> call, Response<Map<Producto, Foto>> response) {
+            public void onResponse(Call<List<Foto>> call, Response<List<Foto>> response) {
                 fotosProductos = response.body();
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(fotosProductos);
+                    productoCallback.onSuccessFotos(fotosProductos);
 
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
@@ -191,7 +217,32 @@ public class ProductoManager {
             }
 
             @Override
-            public void onFailure(Call<Map<Producto, Foto>> call, Throwable t) {
+            public void onFailure(Call<List<Foto>> call, Throwable t) {
+                Log.e("ProductoManager->", t.toString());
+                productoCallback.onFailure(t);
+            }
+        });
+    }
+
+    public synchronized void getFotoPrincipal(final ProductoCallback productoCallback, Long id) {
+        Call<Foto> call = productoService.getFotoPrincipal(LoginManager.getInstance().getBearerToken(), id);
+
+        call.enqueue(new Callback<Foto>() {
+            @Override
+            public void onResponse(Call<Foto> call, Response<Foto> response) {
+                fotoPrincipal = response.body();
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productoCallback.onSuccessFotoPrincipal(fotoPrincipal);
+
+                } else {
+                    productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Foto> call, Throwable t) {
                 Log.e("ProductoManager->", t.toString());
                 productoCallback.onFailure(t);
             }
