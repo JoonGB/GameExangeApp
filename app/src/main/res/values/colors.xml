@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4b79a1</color>
+    <color name="colorPrimary">#6593ba</color>
     <color name="colorPrimaryDark">#283e51</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#00ff4081</color>
+    <color name="Registro">#34567c</color>
+    <color name="RegstroTxt">#97acc0</color>
 </resources>

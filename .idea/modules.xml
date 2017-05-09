@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GameExchangeApp.iml" filepath="$PROJECT_DIR$/GameExchangeApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GameExangeApp.iml" filepath="$PROJECT_DIR$/GameExangeApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

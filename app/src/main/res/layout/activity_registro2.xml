@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:hint="Fecha de nacimiento"
+        android:padding="18dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        tools:layout_conversion_absoluteHeight="57dp"
+        tools:layout_conversion_absoluteWidth="328dp"
+        tools:layout_conversion_absoluteX="16dp"
+        tools:layout_conversion_absoluteY="323dp"
+        tools:layout_editor_absoluteX="28dp" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:hint="Segundo Apellido"
+        android:padding="18dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp"
+        tools:layout_conversion_absoluteHeight="57dp"
+        tools:layout_conversion_absoluteWidth="328dp"
+        tools:layout_conversion_absoluteX="16dp"
+        tools:layout_conversion_absoluteY="323dp"
+        tools:layout_editor_absoluteX="28dp"
+        android:layout_marginBottom="73dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:padding="18dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp"
+        tools:layout_conversion_absoluteHeight="57dp"
+        tools:layout_conversion_absoluteWidth="328dp"
+        tools:layout_conversion_absoluteX="16dp"
+        tools:layout_conversion_absoluteY="323dp"
+        tools:layout_editor_absoluteX="28dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText5" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:hint="Primer Apellido"
+        android:padding="18dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp"
+        tools:layout_conversion_absoluteHeight="57dp"
+        tools:layout_conversion_absoluteWidth="328dp"
+        tools:layout_conversion_absoluteX="16dp"
+        tools:layout_conversion_absoluteY="323dp"
+        tools:layout_editor_absoluteX="28dp"
+        android:layout_marginBottom="-4dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText3" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/Registro"
+        android:elevation="0dp"
+        android:text="Siguiente"
+        android:textColor="@color/RegstroTxt"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="82dp"
+        android:id="@+id/linearLayout"
+        tools:layout_editor_absoluteY="406dp">
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="Otro"
+            tools:layout_editor_absoluteX="240dp"
+            tools:layout_editor_absoluteY="321dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="Mujer"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="321dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:layout_weight="1"
+            android:text="Hombre"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="321dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="51dp"
+        android:layout_height="38dp"
+        android:background="@color/colorAccent"
+        android:text="▼"
+        tools:layout_editor_absoluteX="294dp"
+        tools:layout_editor_absoluteY="343dp" />
+
+</android.support.constraint.ConstraintLayout>
