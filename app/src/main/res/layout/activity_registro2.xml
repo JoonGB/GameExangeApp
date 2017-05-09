@@ -111,7 +111,7 @@
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="82dp"
         android:id="@+id/linearLayout"
-        tools:layout_editor_absoluteY="406dp">
+        tools:layout_editor_absoluteY="397dp">
 
         <RadioButton
             android:id="@+id/radioButton2"
