@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
     }
 
     @Override
-    public void onSuccess(List<Producto> productos) {
+    public void onSuccess(final List<Producto> productos) {
         Log.e("ProductosActivity->", productos.toString());
         if (productos.size() > 0) {
 
@@ -41,6 +43,14 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
 
             ProductoListAdapter adapter = new ProductoListAdapter(this, productos);
             productosGrid.setAdapter(adapter);
+            productosGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (productos.get(i).getId()!=null) {
+                        Toast.makeText(ProductoListActivity.this, productos.get(i).getNombre(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else {
             setContentView(R.layout.productos_nohayproductos);
         }
@@ -63,6 +73,7 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
     public class ProductoListAdapter extends BaseAdapter {
         private Context context;
         private List<Producto> productosList;
+        private Producto producto;
 
         public ProductoListAdapter(Context context, List<Producto> productosList) {
             this.context = context;
@@ -88,28 +99,35 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
 
         @Override
         public View getView(int position, View view, ViewGroup viewGroup) {
-
+            ViewHolder holder;
             if (view == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.products_item, viewGroup, false);
+                holder = new ViewHolder();
+                holder.frame = (FrameLayout) view.findViewById(R.id.frame);
+                holder.tvNombre = (TextView) view.findViewById(R.id.nombre);
+                holder.tvPrecio = (TextView) view.findViewById(R.id.precio);
+                holder.imImagen = (ImageView) view.findViewById(R.id.foto);
+
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
             }
-            ProductoListActivity.ProductoListAdapter.ViewHolder holder = new ProductoListActivity.ProductoListAdapter.ViewHolder();
-            // Cogemos los items de la view
-            holder.tvNombre = (TextView) view.findViewById(R.id.nombre);
-            holder.tvPrecio = (TextView) view.findViewById(R.id.precio);
-            holder.imImagen = (ImageView) view.findViewById(R.id.foto);
 
-            // Cogemos el producto, le extraemos los atributos y los colocamos en los items
-            Producto product = productosList.get(position);
-            holder.tvNombre.setText(product.getNombre());
+            producto = productosList.get(position);
+            holder.tvNombre.setText(producto.getNombre());
             holder.tvPrecio.setText(String.valueOf(productosList.get(position).getPrecio()) + " €");
-            String fotoprincipal = product.getFotoPrincipal().getFoto();
-
-
+            String fotoprincipal = producto.getFotoPrincipal().getFoto();
             byte[] imageAsBytes  = Base64.decode(fotoprincipal, Base64.DEFAULT);
             holder.imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
             holder.imImagen.setMaxWidth(80);
+            /*holder.frame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ProductoListActivity.this, producto.getNombre(), Toast.LENGTH_SHORT).show();
+                }
+            });*/
 
             return view;
         }
