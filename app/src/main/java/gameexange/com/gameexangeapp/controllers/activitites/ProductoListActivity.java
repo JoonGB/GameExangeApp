@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,11 +79,11 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
             return productosList.get(position).getId();
         }
 
-        public class ViewHolder {
-            public TextView tvId;
-            public TextView tvNombre;
-            public TextView tvPrecio;
-            public ImageView imImagen;
+        private class ViewHolder {
+            private FrameLayout frame;
+            private ImageView imImagen;
+            private TextView tvNombre;
+            private TextView tvPrecio;
         }
 
         @Override
@@ -92,18 +93,15 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.products_item, viewGroup, false);
-
             }
             ProductoListActivity.ProductoListAdapter.ViewHolder holder = new ProductoListActivity.ProductoListAdapter.ViewHolder();
             // Cogemos los items de la view
-            holder.tvId = (TextView) view.findViewById(R.id.id);
             holder.tvNombre = (TextView) view.findViewById(R.id.nombre);
             holder.tvPrecio = (TextView) view.findViewById(R.id.precio);
             holder.imImagen = (ImageView) view.findViewById(R.id.foto);
 
             // Cogemos el producto, le extraemos los atributos y los colocamos en los items
             Producto product = productosList.get(position);
-            holder.tvId.setText(Long.toString(product.getId()));
             holder.tvNombre.setText(product.getNombre());
             holder.tvPrecio.setText(String.valueOf(productosList.get(position).getPrecio()) + " €");
             String fotoprincipal = product.getFotoPrincipal().getFoto();
