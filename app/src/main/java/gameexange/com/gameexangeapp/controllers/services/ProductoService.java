@@ -21,6 +21,12 @@ public interface ProductoService {
             @Header("Authorization") String Authorization
     );
 
+    @GET("api/productodto/{id}")
+    Call<Producto> getProductoByIdDTO(
+            @Header("Authorization") String Authorization,
+            @Path("id") Long id
+    );
+
     @GET("/api/productos/byCategoria/{categoria}")
     Call<List<Producto>> getProductosByCategoria(
             @Header("Authorization") String Authorization,

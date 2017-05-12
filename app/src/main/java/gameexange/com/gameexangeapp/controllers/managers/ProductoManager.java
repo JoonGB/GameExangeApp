@@ -55,7 +55,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
 
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
@@ -80,7 +80,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
 
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
@@ -89,6 +89,31 @@ public class ProductoManager {
 
             @Override
             public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Log.e("ProductoManager->", t.toString());
+                productoCallback.onFailure(t);
+            }
+        });
+    }
+
+    public synchronized void getProductoByIdDTO(final ProductoCallback productoCallback, Long id) {
+        Call<Producto> call = productoService.getProductoByIdDTO(LoginManager.getInstance().getBearerToken(), id);
+
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                producto = response.body();
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productoCallback.onSuccessProducto(producto);
+
+                } else {
+                    productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
                 Log.e("ProductoManager->", t.toString());
                 productoCallback.onFailure(t);
             }
@@ -106,7 +131,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
@@ -132,7 +157,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
@@ -158,7 +183,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
@@ -184,7 +209,7 @@ public class ProductoManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    productoCallback.onSuccess(productos);
+                    productoCallback.onSuccessProductosList(productos);
                 } else {
                     productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }

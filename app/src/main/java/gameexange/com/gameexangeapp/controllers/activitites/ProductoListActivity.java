@@ -1,6 +1,7 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,10 +35,9 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
     }
 
     @Override
-    public void onSuccess(final List<Producto> productos) {
+    public void onSuccessProductosList(final List<Producto> productos) {
         Log.e("ProductosActivity->", productos.toString());
         if (productos.size() > 0) {
-
             setContentView(R.layout.activity_products);
             productosGrid = (GridView) findViewById(R.id.grid1);
 
@@ -46,8 +46,10 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
             productosGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if (productos.get(i).getId()!=null) {
-                        Toast.makeText(ProductoListActivity.this, productos.get(i).getNombre(), Toast.LENGTH_SHORT).show();
+                    if (productos.get(i).getId() != null) {
+                        Intent intent = new Intent(ProductoListActivity.this, ProductoDetalleActivity.class);
+                        intent.putExtra("producto", productos.get(i).getId());
+                        startActivity(intent);
                     }
                 }
             });
@@ -56,6 +58,10 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
         }
     }
 
+    @Override
+    public void onSuccessProducto(Producto producto) {
+
+    }
     @Override
     public void onSuccessFotos(List<Foto> fotos) {
 
@@ -122,14 +128,10 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
             byte[] imageAsBytes  = Base64.decode(fotoprincipal, Base64.DEFAULT);
             holder.imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
             holder.imImagen.setMaxWidth(80);
-            /*holder.frame.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(ProductoListActivity.this, producto.getNombre(), Toast.LENGTH_SHORT).show();
-                }
-            });*/
 
             return view;
         }
+
+
     }
 }

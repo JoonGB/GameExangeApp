@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="19dp"
         android:hint="Fecha de nacimiento"
         android:padding="18dp"
@@ -22,12 +22,12 @@
         tools:layout_conversion_absoluteWidth="328dp"
         tools:layout_conversion_absoluteX="16dp"
         tools:layout_conversion_absoluteY="323dp"
-        tools:layout_editor_absoluteX="28dp" />
+        tools:layout_editor_absoluteX="16dp" />
 
     <EditText
         android:id="@+id/editText3"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:hint="Segundo Apellido"
         android:padding="18dp"
         android:textColor="@android:color/white"
@@ -37,14 +37,14 @@
         tools:layout_conversion_absoluteWidth="328dp"
         tools:layout_conversion_absoluteX="16dp"
         tools:layout_conversion_absoluteY="323dp"
-        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteX="16dp"
         android:layout_marginBottom="73dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
 
     <EditText
         android:id="@+id/editText4"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:hint="Nombre"
         android:padding="18dp"
         android:textColor="@android:color/white"
@@ -54,14 +54,14 @@
         tools:layout_conversion_absoluteWidth="328dp"
         tools:layout_conversion_absoluteX="16dp"
         tools:layout_conversion_absoluteY="323dp"
-        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteX="16dp"
         android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toTopOf="@+id/editText5" />
 
     <EditText
         android:id="@+id/editText5"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:hint="Primer Apellido"
         android:padding="18dp"
         android:textColor="@android:color/white"
@@ -71,14 +71,13 @@
         tools:layout_conversion_absoluteWidth="328dp"
         tools:layout_conversion_absoluteX="16dp"
         tools:layout_conversion_absoluteY="323dp"
-        tools:layout_editor_absoluteX="28dp"
-        android:layout_marginBottom="-4dp"
+        tools:layout_editor_absoluteX="16dp"
         app:layout_constraintBottom_toTopOf="@+id/editText3" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/logo"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,7 +93,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/Registro"
         android:elevation="0dp"
         android:text="Siguiente"
@@ -106,12 +105,12 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteX="0dp"
         android:id="@+id/linearLayout"
-        tools:layout_editor_absoluteY="397dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <RadioButton
             android:id="@+id/radioButton2"
@@ -145,11 +144,11 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="51dp"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/colorAccent"
         android:text="▼"
-        tools:layout_editor_absoluteX="294dp"
-        tools:layout_editor_absoluteY="343dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </android.support.constraint.ConstraintLayout>
