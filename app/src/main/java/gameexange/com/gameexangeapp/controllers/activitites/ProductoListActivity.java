@@ -50,6 +50,7 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
                         Intent intent = new Intent(ProductoListActivity.this, ProductoDetalleActivity.class);
                         intent.putExtra("producto", productos.get(i).getId());
                         startActivity(intent);
+
                     }
                 }
             });

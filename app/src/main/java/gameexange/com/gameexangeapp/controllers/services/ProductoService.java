@@ -21,7 +21,7 @@ public interface ProductoService {
             @Header("Authorization") String Authorization
     );
 
-    @GET("api/productodto/{id}")
+    @GET("api/productosdto/{id}")
     Call<Producto> getProductoByIdDTO(
             @Header("Authorization") String Authorization,
             @Path("id") Long id

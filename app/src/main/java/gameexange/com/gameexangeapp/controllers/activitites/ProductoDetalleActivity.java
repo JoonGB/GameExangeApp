@@ -46,7 +46,7 @@ public class ProductoDetalleActivity extends AppCompatActivity implements Produc
         Bundle extras = getIntent().getExtras();
         Long productoId = extras.getLong("producto");
         ProductoManager.getInstance().getProductoByIdDTO(ProductoDetalleActivity.this, productoId);
-    }
+     }
 
     @Override
     public void onSuccessProducto(Producto producto) {
