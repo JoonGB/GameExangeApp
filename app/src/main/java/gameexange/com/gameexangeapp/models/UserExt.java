@@ -1,5 +1,7 @@
 package gameexange.com.gameexangeapp.models;
 
+import java.util.Arrays;
+
 import gameexange.com.gameexangeapp.models.enumeration.Genero;
 
 public class UserExt {
@@ -109,6 +111,42 @@ public class UserExt {
         this.user = user;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserExt userExt = (UserExt) o;
+
+        if (id != null ? !id.equals(userExt.id) : userExt.id != null) return false;
+        if (genero != userExt.genero) return false;
+        if (ciudad != null ? !ciudad.equals(userExt.ciudad) : userExt.ciudad != null) return false;
+        if (fechaNacimiento != null ? !fechaNacimiento.equals(userExt.fechaNacimiento) : userExt.fechaNacimiento != null)
+            return false;
+        if (cp != null ? !cp.equals(userExt.cp) : userExt.cp != null) return false;
+        if (!Arrays.equals(foto, userExt.foto)) return false;
+        if (fotoContentType != null ? !fotoContentType.equals(userExt.fotoContentType) : userExt.fotoContentType != null)
+            return false;
+        if (telefono != null ? !telefono.equals(userExt.telefono) : userExt.telefono != null)
+            return false;
+        return user != null ? user.equals(userExt.user) : userExt.user == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (genero != null ? genero.hashCode() : 0);
+        result = 31 * result + (ciudad != null ? ciudad.hashCode() : 0);
+        result = 31 * result + (fechaNacimiento != null ? fechaNacimiento.hashCode() : 0);
+        result = 31 * result + (cp != null ? cp.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(foto);
+        result = 31 * result + (fotoContentType != null ? fotoContentType.hashCode() : 0);
+        result = 31 * result + (telefono != null ? telefono.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
+    }
 
     @Override
     public String toString() {

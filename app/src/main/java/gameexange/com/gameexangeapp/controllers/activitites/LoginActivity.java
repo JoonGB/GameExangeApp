@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        // Reset errors.
+
         Username.setError(null);
         mPasswordView.setError(null);
 

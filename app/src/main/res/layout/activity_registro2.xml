@@ -25,7 +25,7 @@
         tools:layout_editor_absoluteX="28dp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/pass2"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:hint="Segundo Apellido"
@@ -56,10 +56,10 @@
         tools:layout_conversion_absoluteY="323dp"
         tools:layout_editor_absoluteX="28dp"
         android:layout_marginBottom="7dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText5" />
+        app:layout_constraintBottom_toTopOf="@+id/pass" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/pass"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:hint="Primer Apellido"
@@ -73,7 +73,7 @@
         tools:layout_conversion_absoluteY="323dp"
         tools:layout_editor_absoluteX="28dp"
         android:layout_marginBottom="-4dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText3" />
+        app:layout_constraintBottom_toTopOf="@+id/pass2" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -92,7 +92,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnRegistro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/Registro"
