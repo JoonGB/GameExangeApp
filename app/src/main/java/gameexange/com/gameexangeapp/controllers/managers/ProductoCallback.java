@@ -8,9 +8,10 @@ import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
 public interface ProductoCallback {
-    void onSuccess(List<Producto> productos);
-    void onFailure(Throwable t);
-
+    void onSuccessProductosList(List<Producto> productos);
+    void onSuccessProducto(Producto producto);
     void onSuccessFotos(List<Foto> fotos);
     void onSuccessFotoPrincipal(Foto foto);
+
+    void onFailure(Throwable t);
 }

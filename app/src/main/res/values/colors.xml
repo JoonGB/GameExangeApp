@@ -5,4 +5,6 @@
     <color name="colorAccent">#00ff4081</color>
     <color name="Registro">#34567c</color>
     <color name="RegstroTxt">#97acc0</color>
+    <color name="colorGrayDark">#AFAFAF</color>
+    <color name="colorGrayLight">#C6C3C3</color>
 </resources>

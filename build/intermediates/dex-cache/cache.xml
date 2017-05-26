@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="eba3475d66846c9da0899ee920903dbae20d0e6b">
+        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_ec24cb2128d98814972839fd444e1e5ee1da3fa9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_96b905f2748a85e63d0f44b500e2412628636e97/classes.dex" />
+    </item>
+
+</items>
