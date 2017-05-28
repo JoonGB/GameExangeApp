@@ -25,17 +25,21 @@
 
     <EditText
         android:id="@+id/user"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
         android:hint="Usuario"
         android:inputType="text"
+        android:maxLines="1"
         android:padding="18dp"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textSize="14sp"
-        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintLeft_toLeftOf="@+id/password"
         app:layout_constraintRight_toRightOf="@+id/password"
         tools:layout_constraintBottom_creator="1"
@@ -44,7 +48,7 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="328dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
@@ -66,21 +70,6 @@
         tools:layout_conversion_absoluteX="16dp"
         tools:layout_conversion_absoluteY="323dp" />
 
-
-    <Button
-        android:id="@+id/loginBTN"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:elevation="0dp"
-        android:text="Login"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -100,7 +89,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:text="¿No tienes una cuenta?" />
+            android:text="¿No tienes una cuenta?"
+            android:layout_marginRight="5dp" />
 
         <TextView
             android:id="@+id/registerBTN"
@@ -112,4 +102,31 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/loginBTN"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/loginBTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
+        android:elevation="0dp"
+        android:text="Login"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
+
+
+
