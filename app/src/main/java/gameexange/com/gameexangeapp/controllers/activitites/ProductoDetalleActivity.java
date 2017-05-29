@@ -1,15 +1,16 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
-public class ProductoDetalleActivity extends AppCompatActivity implements ProductoCallback {
+public class ProductoDetalleActivity extends BaseDrawerActivity implements ProductoCallback {
     private ImageView imUsuario;
     private TextView tvUsuario;
     private ImageView imImagen;
@@ -29,19 +30,25 @@ public class ProductoDetalleActivity extends AppCompatActivity implements Produc
     private TextView tvFecha;
     private TextView tvVideojuego;
 
+    LayoutInflater inflater;
+    LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.producto_detalle);
 
-        imUsuario = (ImageView) findViewById(R.id.foto_usuario);
-        tvUsuario = (TextView) findViewById(R.id.usuario);
-        imImagen = (ImageView) findViewById(R.id.foto);
-        tvNombre = (TextView) findViewById(R.id.nombre);
-        tvPrecio = (TextView) findViewById(R.id.precio);
-        tvDescripcion = (TextView) findViewById(R.id.descripcion);
-        tvFecha = (TextView) findViewById(R.id.fecha);
-        tvVideojuego = (TextView) findViewById(R.id.videojuego);
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        linearLayout = (LinearLayout) findViewById(R.id.content_layout);
+        View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
+
+        imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
+        tvUsuario = (TextView) view.findViewById(R.id.usuario);
+        imImagen = (ImageView) view.findViewById(R.id.foto);
+        tvNombre = (TextView) view.findViewById(R.id.nombre);
+        tvPrecio = (TextView) view.findViewById(R.id.precio);
+        tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
+        tvFecha = (TextView) view.findViewById(R.id.fecha);
+        tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
 
         Bundle extras = getIntent().getExtras();
         Long productoId = extras.getLong("producto");
@@ -52,7 +59,7 @@ public class ProductoDetalleActivity extends AppCompatActivity implements Produc
     public void onSuccessProducto(Producto producto) {
         Log.e("ProductosActivity->", producto.toString());
 
-        byte[] imageUsuarioAsBytes  = Base64.decode(producto.getFotoPrincipal().getFoto(), Base64.DEFAULT);
+        byte[] imageUsuarioAsBytes  = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
         imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
         imUsuario.setMaxWidth(80);
         tvUsuario.setText(producto.getUsuario().getLogin());
@@ -64,7 +71,6 @@ public class ProductoDetalleActivity extends AppCompatActivity implements Produc
         tvDescripcion.setText(producto.getDescripcion());
         tvFecha.setText(producto.getCreado());
         tvVideojuego.setText(producto.getVideojuego().getNombre());
-
     }
 
     @Override

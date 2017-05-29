@@ -12,6 +12,7 @@ public class Producto {
     private String nombre;
     private Videojuego videojuego;
     private User usuario;
+    private UserExt usuarioext;
     private Set<Foto> fotos = new HashSet<>();
     private Set<Venta> ventas = new HashSet<>();
     private Foto fotoPrincipal;
@@ -139,14 +140,28 @@ public class Producto {
         this.fotoPrincipal = fotoPrincipal;
     }
 
+    public UserExt getUsuarioext() {
+        return usuarioext;
+    }
+
+    public void setUsuarioext(UserExt usuarioext) {
+        this.usuarioext = usuarioext;
+    }
+
     @Override
     public String toString() {
         return "Producto{" +
                 "id=" + id +
-                ", descripcion='" + descripcion + "'" +
-                ", creado='" + creado + "'" +
-                ", precio='" + precio + "'" +
-                ", nombre='" + nombre + "'" +
+                ", descripcion='" + descripcion + '\'' +
+                ", creado='" + creado + '\'' +
+                ", precio=" + precio +
+                ", nombre='" + nombre + '\'' +
+                ", videojuego=" + videojuego +
+                ", usuario=" + usuario +
+                ", userExt=" + usuarioext +
+                ", fotos=" + fotos +
+                ", ventas=" + ventas +
+                ", fotoPrincipal=" + fotoPrincipal +
                 '}';
     }
 }

@@ -3,30 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="D:\Usuarios\JonGarcia\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jar="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_900678d27d831cd0d0f844fdcc475264cb2166f6\classes.dex" />
+        sha1="0f5dcfff97a05258c8ae125aa6aae35a5d62be31">
+        <dex dex="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_898b27da9ed2d26241a92c5273df3abfaa477717/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7c2ada03cc0dde714bdf70bebc2effba39876d64">
-        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9a7ca0191c396ca580f02104fd8ad09e4b83a0a2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_3a9e576f805a5b457d8f64191df39a2d5a9c1a4b\classes.dex" />
+        <dex dex="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_36b980a4ca21b0db00bead97139d699c2c51ea81/classes.dex" />
     </item>
 
 </items>

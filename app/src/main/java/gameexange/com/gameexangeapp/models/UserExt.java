@@ -11,7 +11,7 @@ public class UserExt {
     private String ciudad;
     private String fechaNacimiento;
     private Integer cp;
-    private byte[] foto;
+    private String foto;
     private String fotoContentType;
     private String telefono;
     private User user;
@@ -67,14 +67,14 @@ public class UserExt {
         this.cp = cp;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
-    public UserExt foto(byte[] foto) {
+    public UserExt foto(String foto) {
         this.foto = foto;
         return this;
     }
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -113,39 +113,13 @@ public class UserExt {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserExt userExt = (UserExt) o;
-
-        if (id != null ? !id.equals(userExt.id) : userExt.id != null) return false;
-        if (genero != userExt.genero) return false;
-        if (ciudad != null ? !ciudad.equals(userExt.ciudad) : userExt.ciudad != null) return false;
-        if (fechaNacimiento != null ? !fechaNacimiento.equals(userExt.fechaNacimiento) : userExt.fechaNacimiento != null)
-            return false;
-        if (cp != null ? !cp.equals(userExt.cp) : userExt.cp != null) return false;
-        if (!Arrays.equals(foto, userExt.foto)) return false;
-        if (fotoContentType != null ? !fotoContentType.equals(userExt.fotoContentType) : userExt.fotoContentType != null)
-            return false;
-        if (telefono != null ? !telefono.equals(userExt.telefono) : userExt.telefono != null)
-            return false;
-        return user != null ? user.equals(userExt.user) : userExt.user == null;
-
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (genero != null ? genero.hashCode() : 0);
-        result = 31 * result + (ciudad != null ? ciudad.hashCode() : 0);
-        result = 31 * result + (fechaNacimiento != null ? fechaNacimiento.hashCode() : 0);
-        result = 31 * result + (cp != null ? cp.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(foto);
-        result = 31 * result + (fotoContentType != null ? fotoContentType.hashCode() : 0);
-        result = 31 * result + (telefono != null ? telefono.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        return result;
+        return super.hashCode();
     }
 
     @Override

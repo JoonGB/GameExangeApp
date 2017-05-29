@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this, RegistroActivity.class);
-               startActivity(i);
+                startActivity(i);
             }
         });
 

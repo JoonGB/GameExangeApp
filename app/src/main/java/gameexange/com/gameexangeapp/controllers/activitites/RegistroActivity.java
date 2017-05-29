@@ -1,6 +1,7 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -8,15 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import gameexange.com.gameexangeapp.R;
+import gameexange.com.gameexangeapp.controllers.managers.RegistroCallback;
 import gameexange.com.gameexangeapp.controllers.managers.RegistroManager;
-import gameexange.com.gameexangeapp.models.UserExt;
+import gameexange.com.gameexangeapp.models.User;
 
-public class RegistroActivity extends AppCompatActivity {
-    private String coord;
-    private UserExt userExt;
+
+public class RegistroActivity extends AppCompatActivity implements RegistroCallback {
     private EditText etUsername;
     private EditText etPassword1;
     private EditText etPassword2;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +29,14 @@ public class RegistroActivity extends AppCompatActivity {
          etUsername = (EditText) findViewById(R.id.username);
          etPassword1 = (EditText) findViewById(R.id.pass);
          etPassword2 = (EditText) findViewById(R.id.pass2);
+         progressDialog = new ProgressDialog(this);
+
 
         final Button btnRegistro = (Button) findViewById(R.id.btnRegistro);
 
 
         Bundle extras = getIntent().getExtras();
-        final String latlon = extras.getString("latlon");
 
-        coord = latlon;
 
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,55 +46,90 @@ public class RegistroActivity extends AppCompatActivity {
         });
     }
     private void Registro (View v){
+        progressDialog.show();
+        progressDialog.setMessage("Creating account");
+        progressDialog.setIndeterminate(true);
+
         etUsername.setError(null);
         etPassword1.setError(null);
         etPassword2.setError(null);
 
-        userExt = new UserExt();
 
-        String usernameDTO = etUsername.getText().toString().toLowerCase();
-        System.out.println(usernameDTO);
-        String passDTO = etPassword1.getText().toString();
-        System.out.println(passDTO);
-        String pass2DTO = etPassword2.getText().toString();
-        System.out.println(pass2DTO);
+        String username = etUsername.getText().toString();
+        String password1 = etPassword1.getText().toString();
+        String password2 = etPassword2.getText().toString();
+
+
+
 
         boolean cancelar = false;
         View focusView = null;
 
-        if (TextUtils.isEmpty(usernameDTO)) {
+
+
+        if (!TextUtils.isEmpty(password1) && !validarPassword(password2)) {
+            etPassword1.setError(getString(R.string.error_invalid_password));
+            focusView = etPassword1;
+            cancelar = true;
+        }
+
+
+        if (!TextUtils.isEmpty(password2) && !validarPassword(password2)) {
+            etPassword2.setError(getString(R.string.error_invalid_password));
+            focusView = etPassword2;
+            cancelar = true;
+        }
+
+        if(!compararPasswords(password1, password2)){
+            etPassword2.setError(getString(R.string.error_confirm_password));
+            focusView = etPassword2;
+            cancelar = true;
+        }
+
+        if (TextUtils.isEmpty(username)) {
             etUsername.setError(getString(R.string.error_field_required));
             focusView = etUsername;
             cancelar = true;
         }
 
-        if(passDTO.length() < 4){
-            etPassword1.setError("4 chars!");
-            focusView = etPassword1;
-            cancelar = true;
-        }
-        if (!passDTO.equals(pass2DTO)) {
-            etPassword2.setError("Incorrect.");
-            focusView = etPassword2;
-
-            cancelar = true;
-        }
-/*
-        userExt.setLogin(usernameDTO);
-        userDTO.setPassword(passDTO);
 
         if (cancelar) {
+
+            progressDialog.dismiss();
             focusView.requestFocus();
         } else {
-            showProgress(true);
-            RegistroManager.getInstance(v.getContext()).registerAccount(RegistroActivity.this, userExt);
+            User user = new User();
+            user.setLogin(username);
+            user.setPassword(password1);
+            RegistroManager.getInstance().Register(RegistroActivity.this,user);
         }
 
+    }
 
 
-*/
+    @Override
+    public void onSuccessRegister() {
+        progressDialog.setMessage("Account created");
+        String username = etUsername.getText().toString();
+        String password = etPassword1.getText().toString();
+    }
+
+    @Override
+    public void onFailureRegister(Throwable t) {
 
     }
+
+    private boolean validarPassword(String password) {
+        return password.length() >= 4;
+    }
+
+    private boolean compararPasswords(String password, String confirmPassword) {
+        if(confirmPassword.equals(password)){
+            return true;
+        }
+        return false;
+    }
+
 
 
 
