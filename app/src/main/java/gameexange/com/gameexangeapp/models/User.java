@@ -20,6 +20,12 @@ public class User {
     private String resetDate = null;
     private Set<Authority> authorities = new HashSet<>();
 
+    public User() {
+    }
+
+    public User(String username, String password1) {
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package gameexange.com.gameexangeapp.controllers.managers;
 
 import gameexange.com.gameexangeapp.controllers.services.RegistroService;
+import gameexange.com.gameexangeapp.models.User;
 import gameexange.com.gameexangeapp.models.UserExt;
 import gameexange.com.gameexangeapp.util.CustomProperties;
 import retrofit2.Call;
@@ -30,11 +31,12 @@ public class RegistroManager {
         return ourInstance;
     }
 
-    public synchronized void registerAccount(final RegistroCallback registerCallback, UserExt userExt) {
-        Call<UserExt> call = registerService.registerAccount(userExt);
-        call.enqueue(new Callback<UserExt>() {
+
+    public synchronized void Register(final RegistroCallback registerCallback, User user) {
+        Call<User> call = registerService.registerAccount(user);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserExt> call, Response<UserExt> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
@@ -46,11 +48,12 @@ public class RegistroManager {
             }
 
             @Override
-            public void onFailure(Call<UserExt> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 registerCallback.onFailureRegister(t);
             }
         });
     }
+
 
 
 }
