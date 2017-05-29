@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +28,16 @@ import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
-public class ProductoListActivity extends AppCompatActivity implements ProductoCallback {
+public class ProductoListActivity extends BaseDrawerActivity implements ProductoCallback {
     private GridView productosGrid;
+    LayoutInflater inflater;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        linearLayout = (LinearLayout) findViewById(R.id.content_layout);
+
         ProductoManager.getInstance().getAllProductosDTO(ProductoListActivity.this);
     }
 
@@ -38,7 +45,8 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
     public void onSuccessProductosList(final List<Producto> productos) {
         Log.e("ProductosActivity->", productos.toString());
         if (productos.size() > 0) {
-            setContentView(R.layout.activity_products);
+            inflater.inflate(R.layout.activity_products, linearLayout);
+
             productosGrid = (GridView) findViewById(R.id.grid1);
 
             ProductoListAdapter adapter = new ProductoListAdapter(this, productos);
@@ -50,12 +58,11 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
                         Intent intent = new Intent(ProductoListActivity.this, ProductoDetalleActivity.class);
                         intent.putExtra("producto", productos.get(i).getId());
                         startActivity(intent);
-
                     }
                 }
             });
         } else {
-            setContentView(R.layout.productos_nohayproductos);
+            inflater.inflate(R.layout.productos_nohayproductos, linearLayout);
         }
     }
 
@@ -98,7 +105,6 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
         }
 
         private class ViewHolder {
-            private FrameLayout frame;
             private ImageView imImagen;
             private TextView tvNombre;
             private TextView tvPrecio;
@@ -108,11 +114,9 @@ public class ProductoListActivity extends AppCompatActivity implements ProductoC
         public View getView(int position, View view, ViewGroup viewGroup) {
             ViewHolder holder;
             if (view == null) {
-                LayoutInflater inflater = (LayoutInflater) context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.products_item, viewGroup, false);
                 holder = new ViewHolder();
-                holder.frame = (FrameLayout) view.findViewById(R.id.frame);
                 holder.tvNombre = (TextView) view.findViewById(R.id.nombre);
                 holder.tvPrecio = (TextView) view.findViewById(R.id.precio);
                 holder.imImagen = (ImageView) view.findViewById(R.id.foto);

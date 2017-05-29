@@ -108,7 +108,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/loginBTN"
         app:layout_constraintRight_toRightOf="parent" />
 

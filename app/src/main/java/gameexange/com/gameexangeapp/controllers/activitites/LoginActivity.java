@@ -1,8 +1,5 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -15,7 +12,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -133,19 +129,10 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         if (show) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
             btnLogin.setEnabled(false);
-
             llProgresslogin.setVisibility(View.VISIBLE);
-            llProgresslogin.animate().setDuration(shortAnimTime).alpha(1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    llProgresslogin.setVisibility(View.GONE);
-                }
-            });
         } else {
-            llProgresslogin.setVisibility(View.GONE);
+            llProgresslogin.setVisibility(View.INVISIBLE);
             btnLogin.setEnabled(true);
         }
     }
