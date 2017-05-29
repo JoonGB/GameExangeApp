@@ -7,6 +7,8 @@ public class Videojuego {
 
     private Long id;
     private String nombre;
+    private String miniatura;
+    private String caratula;
     private Set<Categoria> categorias = new HashSet<>();
     private Set<Producto> productos = new HashSet<>();
 
@@ -26,6 +28,22 @@ public class Videojuego {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getMiniatura() {
+        return miniatura;
+    }
+
+    public void setMiniatura(String miniatura) {
+        this.miniatura = miniatura;
+    }
+
+    public String getCaratula() {
+        return caratula;
+    }
+
+    public void setCaratula(String caratula) {
+        this.caratula = caratula;
     }
 
     public Set<Categoria> getCategorias() {

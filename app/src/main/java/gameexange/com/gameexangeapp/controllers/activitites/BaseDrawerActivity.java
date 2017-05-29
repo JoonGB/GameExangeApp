@@ -12,9 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gameexange.com.gameexangeapp.R;
+import gameexange.com.gameexangeapp.models.Videojuego;
 
 public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private View view;
@@ -25,6 +31,20 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+
+        List<Videojuego> videojuegos = new ArrayList<>();
+        Videojuego nuevoVideojuego = new Videojuego();
+        nuevoVideojuego.setId(7346L);
+        nuevoVideojuego.setNombre("The Legend of Zelda: Breath of the Wild");
+        nuevoVideojuego.setMiniatura("http://images.igdb.com/igdb/image/upload/t_thumb/jk9el4ksl4c7qwaex2y5.png");
+        videojuegos.add(nuevoVideojuego);
+
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.buscador);
+        textView.setAdapter(new AutoCompleteVideojuegosAdapter(this, videojuegos));
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
