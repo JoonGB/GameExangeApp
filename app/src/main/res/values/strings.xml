@@ -24,6 +24,15 @@
     <string name="drawer_mis_chats">Mis chats</string>
     <string name="drawer_compartir">Invita a tus amigos</string>
 
+    <!-- Creación de productos -->
+    <string name="crear_nombre_producto">¿Qué quieres vender?</string>
+    <string name="crear_precio_producto">¿Cuanto quieres recibir?</string>
+    <string name="crear_descripcion_producto">Decríbenos un poco tu producto...</string>
+    <string name="crear_videojuego_producto">¿De qué videojuego es tu producto?</string>
+    <string name="crear_fotos_producto">¡Sube alguna foto!</string>
+    <string name="crear_btn_producto">¡Ponlo ya a la venta!</string>
+
+
 
     <!-- ERRORES DE PERMISOS -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email

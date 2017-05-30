@@ -1,5 +1,6 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -54,7 +55,8 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(BaseDrawerActivity.this, "Crear producto", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(BaseDrawerActivity.this, CrearProductoActivity.class);
+                startActivity(i);
             }
         });
 
