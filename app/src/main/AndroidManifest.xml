@@ -17,35 +17,14 @@
         <activity android:name=".controllers.activitites.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".controllers.activitites.ProductoListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".controllers.activitites.ProductoDetalleActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".controllers.activitites.RegistroActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".controllers.activitites.CrearProductoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".controllers.activitites.ProductoListActivity"/>
+        <activity android:name=".controllers.activitites.ProductoDetalleActivity"/>
+        <activity android:name=".controllers.activitites.RegistroActivity"/>
+        <activity android:name=".controllers.activitites.CrearProductoActivity"/>
 
     </application>
 
