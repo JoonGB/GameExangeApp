@@ -1,5 +1,6 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
+import android.util.Log;
 import android.widget.Filter;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class VideojuegosFilter extends Filter implements VideojuegoCallback{
     AutoCompleteVideojuegosAdapter adapter;
     List<Videojuego> videojuegos;
     List<Videojuego> videojuegosFiltrados;
+    String filterPattern = "";
 
     public VideojuegosFilter(AutoCompleteVideojuegosAdapter adapter, List<Videojuego> videojuegos) {
         super();
@@ -31,21 +33,15 @@ public class VideojuegosFilter extends Filter implements VideojuegoCallback{
     protected FilterResults performFiltering(CharSequence constraint) {
         videojuegosFiltrados.clear();
         videojuegos.clear();
+        filterPattern = "";
 
         final FilterResults results = new FilterResults();
 
         if(constraint == null || constraint.length() == 0) {
             videojuegosFiltrados.addAll(videojuegos);
         } else {
+            filterPattern = constraint.toString().toLowerCase().trim();
             VideojuegoManager.getInstance().busquedaProductos(VideojuegosFilter.this, constraint.toString().toLowerCase());
-
-            final String filterPattern = constraint.toString().toLowerCase().trim();
-
-            for (final Videojuego videojuego : videojuegos) {
-                if (videojuego.getNombre().toLowerCase().contains(filterPattern)){
-                    videojuegosFiltrados.add(videojuego);
-                }
-            }
 
         }
         results.values = videojuegosFiltrados;
@@ -63,6 +59,12 @@ public class VideojuegosFilter extends Filter implements VideojuegoCallback{
     @Override
     public void onSuccessVideojuegoList(List<Videojuego> videojuegos) {
         this.videojuegos = videojuegos;
+        for (final Videojuego videojuego : videojuegos) {
+            if (videojuego.getNombre().toLowerCase().contains(filterPattern)){
+                videojuegosFiltrados.add(videojuego);
+            }
+        }
+        Log.e("VideojuegosFilter->", videojuegosFiltrados.toString());
     }
 
     @Override
@@ -82,5 +84,10 @@ public class VideojuegosFilter extends Filter implements VideojuegoCallback{
         nuevoVideojuego2.setNombre("FIFA 17");
         nuevoVideojuego2.setMiniatura("http://images.igdb.com/igdb/image/upload/t_thumb/cmtplicvdajycqx2vz6t.png");
         videojuegos.add(nuevoVideojuego2);
+        for (final Videojuego videojuego : videojuegos) {
+            if (videojuego.getNombre().toLowerCase().contains(filterPattern)){
+                videojuegosFiltrados.add(videojuego);
+            }
+        }
     }
 }
