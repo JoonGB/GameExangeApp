@@ -81,7 +81,7 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
 
     @Override
     public void onFailure(Throwable t) {
-        Log.e("ProductoListActivity->", "getProductosBy->onFailure ERROR " + t.getMessage());
+        Log.e("ProductoListActivity->", "getProductosBy->onFailure ERROR:  " + t.getMessage());
     }
 
     public class ProductoListAdapter extends BaseAdapter {
