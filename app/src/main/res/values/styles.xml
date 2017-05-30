@@ -11,4 +11,11 @@
     <!-- DRAWER -->
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="Autocomplete" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">@color/grey50</item>
+        <item name="colorControlNormal">@color/grey800</item>
+    </style>
+
 </resources>

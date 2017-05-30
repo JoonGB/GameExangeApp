@@ -15,10 +15,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.controllers.managers.LoginCallback;
 import gameexange.com.gameexangeapp.controllers.managers.LoginManager;
 import gameexange.com.gameexangeapp.models.UserToken;
+import gameexange.com.gameexangeapp.models.Videojuego;
 
 public class LoginActivity extends AppCompatActivity implements LoginCallback {
 
