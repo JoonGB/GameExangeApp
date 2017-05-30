@@ -67,7 +67,7 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(BaseDrawerActivity.this, "Hola", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BaseDrawerActivity.this, "Crear producto", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -112,18 +112,16 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_mis_productos) {
+            Toast.makeText(this, "Mis productos", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_videojuegos_deseados) {
+            Toast.makeText(this, "¿Qué deseas?", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_mis_chats) {
+            Toast.makeText(this, "Mis chats", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_ajustes) {
+            Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_compartir) {
+            Toast.makeText(this, "Gracias por compartir", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

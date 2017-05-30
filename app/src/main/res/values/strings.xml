@@ -18,7 +18,12 @@
     <string name="title_activity_base_drawer">BaseDrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="drawer_mis_productos">Mis productos</string>
+    <string name="drawer_videojuegos_deseados">Videojuegos deseados</string>
+    <string name="drawer_mis_chats">Mis chats</string>
+    <string name="drawer_compartir">Invita a tus amigos</string>
+
 
     <!-- ERRORES DE PERMISOS -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email

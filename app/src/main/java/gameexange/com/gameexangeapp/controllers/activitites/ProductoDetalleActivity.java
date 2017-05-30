@@ -59,9 +59,11 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
     public void onSuccessProducto(Producto producto) {
         Log.e("ProductosActivity->", producto.toString());
 
-        byte[] imageUsuarioAsBytes  = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
-        imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
-        imUsuario.setMaxWidth(80);
+        if (producto.getUsuarioext().getFoto() != null) {
+            byte[] imageUsuarioAsBytes = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
+            imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
+            imUsuario.setMaxWidth(80);
+        }
         tvUsuario.setText(producto.getUsuario().getLogin());
         byte[] imageProductoAsBytes  = Base64.decode(producto.getFotoPrincipal().getFoto(), Base64.DEFAULT);
         imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageProductoAsBytes, 0, imageProductoAsBytes.length));
