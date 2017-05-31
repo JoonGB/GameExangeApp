@@ -2,6 +2,7 @@ package gameexange.com.gameexangeapp.controllers.activitites;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -60,8 +61,6 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
         String password2 = etPassword2.getText().toString();
 
 
-
-
         boolean cancelar = false;
         View focusView = null;
 
@@ -100,6 +99,7 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
         } else {
             User user = new User();
             user.setLogin(username);
+            user.setEmail(username + "@gmail.com");
             user.setPassword(password1);
             RegistroManager.getInstance().Register(RegistroActivity.this,user);
         }
@@ -109,9 +109,9 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
 
     @Override
     public void onSuccessRegister() {
-        progressDialog.setMessage("Account created");
-        String username = etUsername.getText().toString();
-        String password = etPassword1.getText().toString();
+        Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+        intent.putExtra("errorProducto", true);
+        startActivity(intent);
     }
 
     @Override

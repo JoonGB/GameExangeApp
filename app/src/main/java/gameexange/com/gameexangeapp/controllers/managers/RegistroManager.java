@@ -33,10 +33,11 @@ public class RegistroManager {
 
 
     public synchronized void Register(final RegistroCallback registerCallback, User user) {
-        Call<User> call = registerService.registerAccount(user);
-        call.enqueue(new Callback<User>() {
+        Call<Void> call = registerService.registerAccount(user);
+       // user.setEmail("aa@aabaa.com");
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
@@ -48,7 +49,7 @@ public class RegistroManager {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 registerCallback.onFailureRegister(t);
             }
         });
