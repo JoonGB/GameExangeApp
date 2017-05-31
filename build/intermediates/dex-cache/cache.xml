@@ -3,21 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="C:\Users\Guillem\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="ffc65085dd3098da1fcc6ae9606e3c604af4ddb2">
-        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_ec24cb2128d98814972839fd444e1e5ee1da3fa9/classes.dex" />
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Guillem\Desktop\Gameexchange\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_670e40adcb580573fafdae0cbd3f04889859f5b9\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="C:\Users\Guillem\Desktop\Gameexchange\GameExangeApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_96b905f2748a85e63d0f44b500e2412628636e97/classes.dex" />
+        sha1="9e800c2d4b13e768a8ed3a3c12003359943e431a">
+        <dex dex="C:\Users\Guillem\Desktop\Gameexchange\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_35f8aff2b22eec341974375238b756108c3a4baa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Guillem\Desktop\Gameexchange\GameExangeApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="12920f9016b8b05acbc2af7cdc13cef6946fe7d3">
+        <dex dex="C:\Users\Guillem\Desktop\Gameexchange\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_d69f01251f17f8ddecad7a2834c2ed93d4bc966e\classes.dex" />
     </item>
 
 </items>

@@ -7,7 +7,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_margin="15dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,8 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/crear_precio_producto" />
+
         <EditText
-            android:id="@+id/etPrecio"
+            android:id="@+id/etPrecioProducto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,13 +37,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/crear_descripcion_producto" />
+
         <EditText
-            android:id="@+id/etDescripcion"
+            android:id="@+id/etDescripcionProducto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.29"
+            android:layout_height="88dp"
             android:ems="10"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:singleLine="false" />
 
         <TextView
             android:layout_width="match_parent"
@@ -57,6 +60,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/crear_fotos_producto" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSubirFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_fotos_subir_foto" />
+
+            <Button
+                android:id="@+id/btnHacerFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_fotos_hacer_foto" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnCrearProducto"

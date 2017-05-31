@@ -30,6 +30,8 @@
     <string name="crear_descripcion_producto">Decríbenos un poco tu producto...</string>
     <string name="crear_videojuego_producto">¿De qué videojuego es tu producto?</string>
     <string name="crear_fotos_producto">¡Sube alguna foto!</string>
+    <string name="crear_fotos_subir_foto">Subir de la galería</string>
+    <string name="crear_fotos_hacer_foto">Hacer foto nueva</string>
     <string name="crear_btn_producto">¡Ponlo ya a la venta!</string>
 
 
