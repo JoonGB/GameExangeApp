@@ -3,30 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="93f237cd7cf1ac413b2d6a2bacd304f51803a58b">
-        <dex dex="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_898b27da9ed2d26241a92c5273df3abfaa477717/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_36b980a4ca21b0db00bead97139d699c2c51ea81/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/DAM/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="/Users/DAM/Downloads/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.5.2_0670149854d1b4345d209f92fd82168ebf7527f3/classes.dex" />
+        sha1="5be79a1e1857e5ac071da37b8178e79322c6a764">
+        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_ec24cb2128d98814972839fd444e1e5ee1da3fa9/classes.dex" />
     </item>
 
 </items>

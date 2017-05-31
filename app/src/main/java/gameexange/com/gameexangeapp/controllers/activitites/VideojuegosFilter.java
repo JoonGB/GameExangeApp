@@ -42,8 +42,8 @@ public class VideojuegosFilter extends Filter implements VideojuegoCallback{
         } else {
             filterPattern = constraint.toString().toLowerCase().trim();
             VideojuegoManager.getInstance().busquedaProductos(VideojuegosFilter.this, constraint.toString().toLowerCase());
-
         }
+
         results.values = videojuegosFiltrados;
         results.count = videojuegosFiltrados.size();
         return results;
