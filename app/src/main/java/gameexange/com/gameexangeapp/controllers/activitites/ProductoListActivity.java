@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -32,6 +34,7 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
     private GridView productosGrid;
     LayoutInflater inflater;
     LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,6 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
 
     @Override
     public void onSuccessProductosList(final List<Producto> productos) {
-        Log.e("ProductosActivity->", productos.toString());
         if (productos.size() > 0) {
             inflater.inflate(R.layout.activity_products, linearLayout);
 
@@ -64,6 +66,16 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
         } else {
             inflater.inflate(R.layout.productos_nohayproductos, linearLayout);
         }
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.getBoolean("errorProducto")) {
+                Toast.makeText(this, R.string.error_producto, Toast.LENGTH_SHORT).show();
+            }
+            if (extras.getBoolean("productoCreado")) {
+                Toast.makeText(this, "El producto se ha creado correctamente.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -75,13 +87,17 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
 
     }
     @Override
+    public void onSuccessCrearProducto() {
+
+    }
+    @Override
     public void onSuccessFotoPrincipal(Foto foto) {
 
     }
 
     @Override
     public void onFailure(Throwable t) {
-        Log.e("ProductoListActivity->", "getProductosBy->onFailure ERROR:  " + t.getMessage());
+        Log.e("ProductoListActivity->", t.getMessage());
     }
 
     public class ProductoListAdapter extends BaseAdapter {
@@ -129,11 +145,15 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
             producto = productosList.get(position);
             holder.tvNombre.setText(producto.getNombre());
             holder.tvPrecio.setText(String.valueOf(productosList.get(position).getPrecio()) + " €");
-            String fotoprincipal = producto.getFotoPrincipal().getFoto();
-            byte[] imageAsBytes  = Base64.decode(fotoprincipal, Base64.DEFAULT);
-            holder.imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-            holder.imImagen.setMaxWidth(80);
-
+            if (producto.getFotoPrincipal() != null) {
+                String fotoprincipal = producto.getFotoPrincipal().getFoto();
+                byte[] imageAsBytes = Base64.decode(fotoprincipal, Base64.DEFAULT);
+                holder.imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                holder.imImagen.setMaxWidth(80);
+            } else {
+                holder.imImagen.setImageResource(R.drawable.logo);
+            }
+    Log.e("ProductListAdapter->", producto.toString());
             return view;
         }
 

@@ -63,6 +63,12 @@ public interface ProductoService {
             @Path("id") Long id
     );
 
+    @POST("api/crearProducto")
+    Call<Producto> crearProducto(
+            @Header("Authorization") String Authorization,
+            @Body Producto product
+
+    );
 
     /*
     @POST("api/productos")

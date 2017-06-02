@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|number" />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="88dp"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:singleLine="false" />
+            android:inputType="textMultiLine"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -56,17 +55,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crear_fotos_producto" />
 
-        <ImageView
-            android:id="@+id/mImageView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_fotos_producto" />
+
+            <TextView
+                android:id="@+id/tv_error_fotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/error_foto_producto"
+                android:textColor="@android:color/background_dark"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/viewPagerProducto"
+            android:layout_width="match_parent"
+            android:layout_height="166dp"></android.support.v4.view.ViewPager>
+
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -10,12 +10,13 @@ public class Producto {
     private String creado;
     private Double precio;
     private String nombre;
-    private Videojuego videojuego;
+    private Long videojuego;
     private User usuario;
-    private UserExt usuarioext;
+
     private Set<Foto> fotos = new HashSet<>();
     private Set<Venta> ventas = new HashSet<>();
     private Foto fotoPrincipal;
+    private UserExt usuarioext;
 
     public Long getId() {
         return id;
@@ -68,14 +69,14 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Videojuego getVideojuego() {
+    public Long getVideojuego() {
         return videojuego;
     }
-    public Producto videojuego(Videojuego videojuego) {
+    public Producto videojuego(Long videojuego) {
         this.videojuego = videojuego;
         return this;
     }
-    public void setVideojuego(Videojuego videojuego) {
+    public void setVideojuego(Long videojuego) {
         this.videojuego = videojuego;
     }
 

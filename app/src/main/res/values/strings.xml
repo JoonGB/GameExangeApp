@@ -14,6 +14,9 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_username_or_password">Datos incorrectos</string>
 
+    <!-- Lista de productos -->
+    <string name="error_producto">Ha ocurrido un error al cargar el producto, intentalo de nuevo más tarde.</string>
+
     <!-- DRAWER -->
     <string name="title_activity_base_drawer">BaseDrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -33,6 +36,13 @@
     <string name="crear_fotos_subir_foto">Subir de la galería</string>
     <string name="crear_fotos_hacer_foto">Hacer foto nueva</string>
     <string name="crear_btn_producto">¡Ponlo ya a la venta!</string>
+    <string name="error_foto_producto">Debes subir almenos una foto!</string>
+    <string name="error_nombre_producto">El nombre del producto es obligatorio</string>
+    <string name="error_nombre_corto_producto">Este nombre es demasiado corto para el producto</string>
+    <string name="error_precio_producto">La descripción del producto es obligatoria</string>
+    <string name="error_precio_formato_producto">No es un precio válido</string>
+    <string name="error_descripcion_producto">La descripción del producto es obligatoria</string>
+    <string name="error_descripcion_corto_producto">Esta descripción es demasiado corta para el producto</string>
 
 
 

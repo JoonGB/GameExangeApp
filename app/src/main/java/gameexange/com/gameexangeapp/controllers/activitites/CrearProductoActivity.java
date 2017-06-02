@@ -6,22 +6,31 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
+import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
-import static android.R.attr.type;
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback {
 
@@ -31,23 +40,30 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
     private EditText etNombreProducto;
     private EditText etPrecioProducto;
     private EditText etDescripcionProducto;
-    private ImageView mImageView;
+    private ViewPager viewPagerProducto;
     private Button btnSubirFoto;
     private Button btnHacerFoto;
     private Button btnCrearProducto;
+
+    private TextView tvErrorFotoProducto;
+
+    private List<Foto> fotoList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
 
+        fotoList = new ArrayList<>();
+
         etNombreProducto = (EditText) findViewById(R.id.etNompreProducto);
         etPrecioProducto = (EditText) findViewById(R.id.etPrecioProducto);
         etDescripcionProducto = (EditText) findViewById(R.id.etDescripcionProducto);
-        mImageView = (ImageView) findViewById(R.id.mImageView);
+        viewPagerProducto = (ViewPager) findViewById(R.id.viewPagerProducto);
         btnSubirFoto = (Button) findViewById(R.id.btnSubirFoto);
         btnHacerFoto = (Button) findViewById(R.id.btnHacerFoto);
         btnCrearProducto = (Button) findViewById(R.id.btnCrearProducto);
+        tvErrorFotoProducto = (TextView) findViewById(R.id.tv_error_fotos);
 
         btnSubirFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,29 +87,129 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         btnCrearProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CrearProductoActivity.this, "Crear el producto", Toast.LENGTH_SHORT).show();
+               crearProducto();
             }
         });
 
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Foto foto = new Foto();
         if (requestCode == CAPTURE_PHOTO && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            foto.setFoto(Base64.encodeToString(byteArray, Base64.DEFAULT));
+            fotoList.add(foto);
         }
-
 
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
             Uri img = data.getData();
             if (img != null) {
-                mImageView.setImageURI(img);
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(img);
+                    ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[1024];
+
+                    int len = 0;
+                    while ((len = inputStream.read(buffer)) != -1) {
+                        byteBuffer.write(buffer, 0, len);
+                    }
+
+                    byte[] inputData = byteBuffer.toByteArray();
+                    foto.setFoto(Base64.encodeToString(inputData, Base64.DEFAULT));
+                    fotoList.add(foto);
+                } catch (IOException e) {
+                    Log.e("CrearProductoActivity->", e.toString());
+                }
             }
         }
 
-        mImageView.invalidate();
+        FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, fotoList);
+        viewPagerProducto.setAdapter(fotoPagerAdapter);
+    }
+
+    private void crearProducto() {
+
+        etNombreProducto.setError(null);
+        etPrecioProducto.setError(null);
+        etDescripcionProducto.setError(null);
+        tvErrorFotoProducto.setVisibility(View.INVISIBLE);
+
+        boolean cancel = false;
+        View focusView = null;
+
+        String nombreProducto = etNombreProducto.getText().toString();
+        String precioProducto = etPrecioProducto.getText().toString();
+        String descripcionProducto = etDescripcionProducto.getText().toString();
+
+
+        if (nombreProducto.equals("")) {
+            etNombreProducto.setError(getString(R.string.error_nombre_producto));
+            focusView = etNombreProducto;
+            cancel = true;
+        } else if (nombreProducto.length() < 4) {
+            etNombreProducto.setError(getString(R.string.error_nombre_corto_producto));
+            focusView = etNombreProducto;
+            cancel = true;
+        }
+
+        if (descripcionProducto.equals("")) {
+            etDescripcionProducto.setError(getString(R.string.error_descripcion_producto));
+            focusView = etDescripcionProducto;
+            cancel = true;
+        } else if (descripcionProducto.length() < 10) {
+            etDescripcionProducto.setError(getString(R.string.error_descripcion_corto_producto));
+            focusView = etDescripcionProducto;
+            cancel = true;
+        }
+
+        if (precioProducto.equals("")) {
+            etPrecioProducto.setError(getString(R.string.error_precio_producto));
+            focusView = etPrecioProducto;
+            cancel = true;
+        }
+        try {
+            double d = Double.parseDouble(precioProducto);
+        } catch(NumberFormatException nfe) {
+            etPrecioProducto.setError(getString(R.string.error_precio_formato_producto));
+            focusView = etPrecioProducto;
+            cancel = true;
+        }
+
+        if (fotoList.size() == 0) {
+            tvErrorFotoProducto.setVisibility(View.VISIBLE);
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+        } else {
+            Producto producto = new Producto();
+            producto.setNombre(etNombreProducto.getText().toString());
+            producto.setDescripcion(etDescripcionProducto.getText().toString());
+            producto.setPrecio(Double.parseDouble(etPrecioProducto.getText().toString()));
+            producto.setVideojuego(1L);
+            Set<Foto> set = new HashSet<>(fotoList);
+            producto.setFotos(set);
+
+            ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
+        }
+    }
+
+    @Override
+    public void onSuccessCrearProducto() {
+        Intent i = new Intent(CrearProductoActivity.this, ProductoListActivity.class);
+        i.putExtra("productoCreado", true);
+        startActivity(i);
+        Toast.makeText(this, "En teoría ha ido bien", Toast.LENGTH_SHORT).show();
+        Log.e("CrearProductoActivity->", "En teoría ha ido bien");
+    }
+    @Override
+    public void onFailure(Throwable t) {
+        Log.e("CrearProductoActivity->", t.toString());
     }
 
     @Override
@@ -110,10 +226,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
     }
     @Override
     public void onSuccessFotoPrincipal(Foto foto) {
-
-    }
-    @Override
-    public void onFailure(Throwable t) {
 
     }
 }

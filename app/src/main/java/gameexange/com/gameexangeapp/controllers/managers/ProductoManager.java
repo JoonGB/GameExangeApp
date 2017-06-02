@@ -273,4 +273,26 @@ public class ProductoManager {
             }
         });
     }
+
+    public synchronized void crearProducto(final ProductoCallback productoCallback, Producto producto) {
+        Call<Producto> call = productoService.crearProducto(LoginManager.getInstance().getBearerToken(), producto);
+        call.enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, Response<Producto> response) {
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productoCallback.onSuccessCrearProducto();
+
+                } else {
+                    productoCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+                productoCallback.onFailure(t);
+            }
+        });
+    }
 }

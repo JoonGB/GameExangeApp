@@ -74,11 +74,11 @@ public class Videojuego {
         this.productos = productos;
         return this;
     }
-    public Videojuego addProducto(Producto producto) {
+   /* public Videojuego addProducto(Producto producto) {
         productos.add(producto);
         producto.setVideojuego(this);
         return this;
-    }
+    }*/
     public Videojuego removeProducto(Producto producto) {
         productos.remove(producto);
         producto.setVideojuego(null);

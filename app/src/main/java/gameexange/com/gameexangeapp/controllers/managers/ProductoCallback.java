@@ -12,6 +12,6 @@ public interface ProductoCallback {
     void onSuccessProducto(Producto producto);
     void onSuccessFotos(List<Foto> fotos);
     void onSuccessFotoPrincipal(Foto foto);
-
+    void onSuccessCrearProducto();
     void onFailure(Throwable t);
 }

@@ -36,8 +36,6 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
 
     LayoutInflater inflater;
     LinearLayout linearLayout;
-    // onsuccess VideojuegosFilter
-    // primera vez que se ejecuta el backend
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +43,9 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
 
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout) findViewById(R.id.content_layout);
-        View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
 
-        imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
-        tvUsuario = (TextView) view.findViewById(R.id.usuario);
-        viewPager = (ViewPager) view.findViewById(R.id.pager);
-        tvNombre = (TextView) view.findViewById(R.id.nombre);
-        tvPrecio = (TextView) view.findViewById(R.id.precio);
-        tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
-        tvFecha = (TextView) view.findViewById(R.id.fecha);
-        tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
+
+
 
         Bundle extras = getIntent().getExtras();
         Long productoId = extras.getLong("producto");
@@ -65,23 +56,41 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
     public void onSuccessProducto(Producto producto) {
         Log.e("ProductosActivity->", producto.toString());
 
-        if (producto.getUsuarioext().getFoto() != null) {
-            byte[] imageUsuarioAsBytes = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
-            imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
-            imUsuario.setMaxWidth(80);
+        if (producto.getUsuarioext() == null) {
+            Intent intent = new Intent(ProductoDetalleActivity.this, ProductoListActivity.class);
+            intent.putExtra("errorProducto", true);
+            startActivity(intent);
+        } else {
+            View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
+
+            imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
+            tvUsuario = (TextView) view.findViewById(R.id.usuario);
+            viewPager = (ViewPager) view.findViewById(R.id.pager);
+            tvNombre = (TextView) view.findViewById(R.id.nombre);
+            tvPrecio = (TextView) view.findViewById(R.id.precio);
+            tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
+            tvFecha = (TextView) view.findViewById(R.id.fecha);
+            tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
+
+
+            if (producto.getUsuarioext().getFoto() != null) {
+                byte[] imageUsuarioAsBytes = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
+                imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
+                imUsuario.setMaxWidth(80);
+            }
+            tvUsuario.setText(producto.getUsuario().getLogin());
+
+            FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, new ArrayList<>(producto.getFotos()));
+            viewPager.setAdapter(fotoPagerAdapter);
+
+            tvNombre.setText(producto.getNombre());
+            tvPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
+            tvDescripcion.setText(producto.getDescripcion());
+
+
+            tvFecha.setText(producto.getCreado());
+            tvVideojuego.setText(producto.getVideojuego().toString());
         }
-        tvUsuario.setText(producto.getUsuario().getLogin());
-
-        FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, new ArrayList<>(producto.getFotos()));
-        viewPager.setAdapter(fotoPagerAdapter);
-
-        tvNombre.setText(producto.getNombre());
-        tvPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
-        tvDescripcion.setText(producto.getDescripcion());
-
-
-        tvFecha.setText(producto.getCreado());
-        tvVideojuego.setText(producto.getVideojuego().getNombre());
     }
 
     @Override
@@ -91,50 +100,12 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
         startActivity(intent);
     }
 
-
-    private class FotoPagerAdapter extends PagerAdapter {
-
-        private Context contextAdapter;
-        private LayoutInflater inflaterAdapter;
-        private List<Foto> fotosAdapter;
-
-        public FotoPagerAdapter(Context context, List<Foto> fotos) {
-            contextAdapter = context;
-            inflaterAdapter = (LayoutInflater) contextAdapter.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            fotosAdapter = fotos;
-        }
-
-        @Override
-        public int getCount() {
-            return fotosAdapter.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View itemView = inflaterAdapter.inflate(R.layout.pager_item, container, false);
-
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            byte[] imageProductoAsBytes  = Base64.decode(fotosAdapter.get(position).getFoto(), Base64.DEFAULT);
-            imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageProductoAsBytes, 0, imageProductoAsBytes.length));
-
-            container.addView(itemView);
-
-            return itemView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout) object);
-        }
+    @Override
+    public void onSuccessProductosList(List<Producto> productos) {
     }
 
     @Override
-    public void onSuccessProductosList(List<Producto> productos) {
+    public void onSuccessCrearProducto() {
 
     }
     @Override

@@ -25,12 +25,8 @@
 
     <EditText
         android:id="@+id/user"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginStart="32dp"
         android:hint="Usuario"
         android:inputType="text"
         android:maxLines="1"
@@ -105,8 +101,8 @@
     <ProgressBar
         android:id="@+id/login_progress"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
         android:layout_gravity="bottom"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/loginBTN"
