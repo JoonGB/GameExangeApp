@@ -50,4 +50,5 @@
         completions."
     </string>
     <string name="title_activity_videojuego_list">VideojuegoListActivity</string>
+    <string name="title_activity_filtros_busqueda_producto">FiltrosBusquedaProducto</string>
 </resources>

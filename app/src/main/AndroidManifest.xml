@@ -36,7 +36,12 @@
             android:name=".controllers.activitites.VideojuegoListActivity"
             android:label="@string/title_activity_videojuego_list"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".controllers.activitites.BusquedaVideojuego"></activity>
+        <activity android:name=".controllers.activitites.BusquedaVideojuego" />
+        <activity
+            android:name=".FiltrosBusquedaProducto"
+            android:label="@string/title_activity_filtros_busqueda_producto"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".FiltrosBusquedaProductos"></activity>
     </application>
 
 </manifest>
