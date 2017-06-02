@@ -45,9 +45,9 @@
     <string name="error_descripcion_corto_producto">Esta descripción es demasiado corta para el producto</string>
 
 
-
     <!-- ERRORES DE PERMISOS -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_videojuego_list">VideojuegoListActivity</string>
 </resources>

@@ -156,7 +156,5 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
     Log.e("ProductListAdapter->", producto.toString());
             return view;
         }
-
-
     }
 }

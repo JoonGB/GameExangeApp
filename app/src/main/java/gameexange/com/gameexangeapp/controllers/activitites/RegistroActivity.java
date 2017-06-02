@@ -29,7 +29,7 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
 
          etUsername = (EditText) findViewById(R.id.username);
          etPassword1 = (EditText) findViewById(R.id.pass);
-         etPassword2 = (EditText) findViewById(R.id.pass2);
+         etPassword2 = (EditText) findViewById(R.id.etBusqueda);
          progressDialog = new ProgressDialog(this);
 
 

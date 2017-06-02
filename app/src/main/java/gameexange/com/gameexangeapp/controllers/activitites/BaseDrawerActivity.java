@@ -48,7 +48,6 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
                 }
             }
         });
-        textView.setAdapter(new AutoCompleteVideojuegosAdapter(this, videojuegos));
 */
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -111,6 +110,9 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
             Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_compartir) {
             Toast.makeText(this, "Gracias por compartir", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_busqueda_videojuegos) {
+            Intent intent = new Intent(this, BusquedaVideojuego.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

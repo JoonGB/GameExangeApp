@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/pass2"
+        android:id="@+id/etBusqueda"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="146dp"
@@ -60,7 +60,7 @@
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/pass2"
+        app:layout_constraintBottom_toTopOf="@+id/etBusqueda"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_conversion_absoluteHeight="57dp"
