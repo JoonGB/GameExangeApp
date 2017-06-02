@@ -3,12 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="5be79a1e1857e5ac071da37b8178e79322c6a764">
-        <dex dex="/Users/DAM/Guillem/Gameexchange/GameExangeApp/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_ec24cb2128d98814972839fd444e1e5ee1da3fa9/classes.dex" />
+        sha1="d24894056b5afa13f17fc0e7ae466b41c0187eee">
+        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9a7ca0191c396ca580f02104fd8ad09e4b83a0a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_3a9e576f805a5b457d8f64191df39a2d5a9c1a4b\classes.dex" />
     </item>
 
 </items>

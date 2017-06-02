@@ -25,7 +25,7 @@
         tools:layout_editor_absoluteX="28dp" />
 
     <EditText
-        android:id="@+id/pass2"
+        android:id="@+id/etBusqueda"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:hint="Segundo Apellido"
@@ -73,7 +73,7 @@
         tools:layout_conversion_absoluteY="323dp"
         tools:layout_editor_absoluteX="28dp"
         android:layout_marginBottom="-4dp"
-        app:layout_constraintBottom_toTopOf="@+id/pass2" />
+        app:layout_constraintBottom_toTopOf="@+id/etBusqueda" />
 
     <ImageView
         android:id="@+id/imageView"

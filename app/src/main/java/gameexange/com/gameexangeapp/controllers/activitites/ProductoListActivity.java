@@ -136,7 +136,5 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
 
             return view;
         }
-
-
     }
 }
