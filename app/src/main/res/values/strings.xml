@@ -51,4 +51,5 @@
     </string>
     <string name="title_activity_videojuego_list">VideojuegoListActivity</string>
     <string name="title_activity_filtros_busqueda_producto">FiltrosBusquedaProducto</string>
+    <string name="title_activity_obtener_localizacion">Map</string>
 </resources>

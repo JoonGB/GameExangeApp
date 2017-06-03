@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
 public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private View view;
@@ -112,6 +113,9 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
             Toast.makeText(this, "Gracias por compartir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_busqueda_videojuegos) {
             Intent intent = new Intent(this, BusquedaVideojuego.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_localizacion) {
+            Intent intent = new Intent(this, ObtenerLocalizacion.class);
             startActivity(intent);
         }
 

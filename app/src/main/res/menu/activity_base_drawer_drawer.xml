@@ -30,6 +30,11 @@
             android:id="@+id/nav_busqueda_videojuegos"
             android:icon="@mipmap/ic_controller"
             android:title="Buscar videojuegos" />
+
+        <item
+            android:id="@+id/nav_localizacion"
+            android:icon="@mipmap/ic_location"
+            android:title="Obtener localización" />
     </group>
 
 
