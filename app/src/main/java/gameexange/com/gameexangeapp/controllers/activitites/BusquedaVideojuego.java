@@ -1,6 +1,7 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,7 +87,7 @@ public class BusquedaVideojuego extends AppCompatActivity implements VideojuegoC
     }
 
     @Override
-    public void onSuccessVideojuegoList(List<Videojuego> videojuegos) {
+    public void onSuccessVideojuegoList(final List<Videojuego> videojuegos) {
         List<Videojuego> videojuegosFiltrados = new ArrayList<>();
         for(Videojuego videojuego : videojuegos) {
             if(videojuego.getNombre().toLowerCase().contains(busqueda)){
@@ -95,6 +97,20 @@ public class BusquedaVideojuego extends AppCompatActivity implements VideojuegoC
         VideojuegoListAdapter adapter = new VideojuegoListAdapter(this, videojuegos);
         lvBusqueda.setAdapter(adapter);
         lvBusqueda.deferNotifyDataSetChanged();
+
+        lvBusqueda.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (videojuegos.get(i).getId() != null) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("videojuego", videojuegos.get(i).getId().toString());
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
+            }
+        });
+
+
     }
 
     @Override

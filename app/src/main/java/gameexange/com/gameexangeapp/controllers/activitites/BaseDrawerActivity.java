@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
 import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
 public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,7 +82,7 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.base_drawer, menu);
+        getMenuInflater().inflate(R.menu.busqueda_videojuego_bar, menu);
         return true;
     }
 
@@ -89,8 +90,8 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_search) {
+            startActivity(new Intent(BaseDrawerActivity.this, FiltrosBusquedaProductos.class));
         }
 
         return super.onOptionsItemSelected(item);
