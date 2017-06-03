@@ -21,21 +21,21 @@
     </item>
     <item
         is-multidex="true"
+        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7134afc571f4c69fe29ea9a10e4fe337241f65ec">
+        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9a7ca0191c396ca580f02104fd8ad09e4b83a0a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="D:\Usuarios\JonGarcia\.android\build-cache\e4dde087f5bb2716e412d10f8edc38de5f4c3b2f\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
         <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3215a53501ecbf84947f928573f27228ce053d44\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="9c1d83433de62680ff12d26befa7e06b9f9be461">
-        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9a7ca0191c396ca580f02104fd8ad09e4b83a0a2\classes.dex" />
     </item>
     <item
         is-multidex="true"

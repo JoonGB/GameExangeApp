@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
@@ -58,9 +59,18 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.squareup.picasso.Picasso;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -102,8 +112,6 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
         etLocalizacion = (EditText) findViewById(R.id.etLocalizacion);
 
 
-
-
         btnLocalizacion = (Button) findViewById(R.id.btnLocalizacion);
         btnLocalizacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +119,7 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
                 String localizacion = etLocalizacion.getText().toString();
                 List<Address> addressList = null;
 
-                if (localizacion != null || !localizacion.equals("")){
+                if (localizacion != null || !localizacion.equals("")) {
                     Geocoder geocoder = new Geocoder(ObtenerLocalizacion.this);
                     try {
                         addressList = geocoder.getFromLocationName(localizacion, 1);
@@ -120,8 +128,8 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
                     }
                     Address address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    locationLatitude.setText(""+address.getLatitude());
-                    locationLongitude.setText(""+address.getLongitude());
+                    locationLatitude.setText("" + address.getLatitude());
+                    locationLongitude.setText("" + address.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(latLng).title(localizacion).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location)));
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
@@ -129,37 +137,19 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
         });
 
 
-
         actvLocalizacion = (AutoCompleteTextView) findViewById(R.id.actvLocalizacion);
-
-
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        actvLocalizacion.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
+        actvLocalizacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i("Error", "Place: " + place.getName());
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i("Error", "An error occurred: " + status);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String str = (String) adapterView.getItemAtPosition(i);
+                Toast.makeText(ObtenerLocalizacion.this, str, Toast.LENGTH_SHORT).show();
             }
         });
 
-        //actvLocalizacion.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item));
         locationLatitude = (TextView) findViewById(R.id.locationLatitude);
         locationLongitude = (TextView) findViewById(R.id.locationLongitude);
-
-
-
-
-
     }
-
 
 
 
@@ -177,7 +167,7 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         } else {
-            if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
                 Toast.makeText(this, "Se necesitan permisos de geolocalización", Toast.LENGTH_SHORT).show();
             }
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -188,26 +178,24 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        if( mGoogleApiClient != null )
+        if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
     }
-
 
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         //if( adapter != null ) {
-            //adapter.setmGoogleApiClient(mGoogleApiClient);
+        //adapter.setmGoogleApiClient(mGoogleApiClient);
         //}
     }
 
     @Override
     protected void onStop() {
-        if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             //adapter.setmGoogleApiClient(null);
             mGoogleApiClient.disconnect();
         }
@@ -222,6 +210,100 @@ public class ObtenerLocalizacion extends FragmentActivity implements OnMapReadyC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
+        private ArrayList resultList;
+
+        public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        @Override
+        public int getCount() {
+            return resultList.size();
+        }
+
+        @Override
+        public String getItem(int index) {
+            return resultList.get(index).toString();
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence busqueda) {
+                    FilterResults filterResults = new FilterResults();
+                    if (busqueda != null) {
+                        resultList = autocomplete(busqueda.toString());
+
+                        filterResults.values = resultList;
+                        filterResults.count = resultList.size();
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    if (filterResults != null && filterResults.count > 0) {
+                        notifyDataSetChanged();
+                    } else {
+                        notifyDataSetInvalidated();
+                    }
+                }
+            };
+            return filter;
+        }
+
+    }
+
+    public static ArrayList autocomplete (String busqueda) {
+        ArrayList resultList = null;
+
+        HttpURLConnection conn = null;
+        StringBuilder jsonResults = new StringBuilder();
+        try {
+            StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place" + "/autocomplete" + "/json");
+            sb.append("?key=" + "AIzaSyBl6O982GkxvefVnw3BzjmcozKfzoPvZ6k");
+            //sb.append("&components=country:gr");
+            sb.append("&input=" + URLEncoder.encode(busqueda, "utf8"));
+
+            URL url = new URL(sb.toString());
+            conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+
+            int read;
+            char[] buff = new char[1024];
+            while ((read = in.read(buff)) != -1) {
+                jsonResults.append(buff, 0, read);
+            }
+        } catch (MalformedURLException e) {
+            Log.e("Google Places", "Error processing Places API URL", e);
+            return resultList;
+        } catch (IOException e) {
+            Log.e("Google Places", "Error connecting to Places API", e);
+            return resultList;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(jsonResults.toString());
+            JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
+
+            resultList = new ArrayList(predsJsonArray.length());
+            for (int i = 0; i < predsJsonArray.length(); i++) {
+                System.out.println(predsJsonArray.getJSONObject(i).getString("description"));
+                System.out.println("============================================================");
+                resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
+            }
+        } catch (JSONException e) {
+            Log.e("Google Places", "Cannot process JSON results", e);
+        }
+        return resultList;
     }
 
 
