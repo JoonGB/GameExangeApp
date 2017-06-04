@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4B79A1">
+
+    <Button
+        android:id="@+id/btnOrdenProximidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@null"
+        android:drawableLeft="@mipmap/ic_location_mini"
+        android:text="Distancia"
+        android:textAlignment="textStart" />
+
+    <View
+        android:id="@+id/separador1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/separator_background" />
+
+    <Button
+        android:id="@+id/btnOrdenBaratos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@null"
+        android:drawableLeft="@mipmap/ic_coin"
+        android:text="De más barato a más caro"
+        android:textAlignment="textStart" />
+    <View
+        android:id="@+id/separador2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/separator_background" />
+
+    <Button
+        android:id="@+id/btnOrdenCaros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@null"
+        android:drawableLeft="@mipmap/ic_coins"
+        android:text="De más caro a más barato"
+        android:textAlignment="textStart" />
+    <View
+        android:id="@+id/separador3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/separator_background" />
+
+    <Button
+        android:id="@+id/btnOrdenNovedades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@null"
+        android:drawableLeft="@mipmap/ic_novedades"
+        android:text="Novedades"
+        android:textAlignment="textStart" />
+
+
+</LinearLayout>
