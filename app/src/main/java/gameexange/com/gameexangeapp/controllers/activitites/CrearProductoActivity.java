@@ -13,8 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,6 +33,7 @@ import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
+import gameexange.com.gameexangeapp.models.Videojuego;
 
 
 public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback {
@@ -40,15 +45,23 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
     private EditText etNombreProducto;
     private EditText etPrecioProducto;
     private EditText etDescripcionProducto;
+
     private Button btnEscogerVideojuego;
+    private LinearLayout llBuscadorItem;
+    private ImageView ivVideojuego;
+    private TextView tvNombreVideojuego;
+
     private ViewPager viewPagerProducto;
     private Button btnSubirFoto;
     private Button btnHacerFoto;
+
     private Button btnCrearProducto;
 
-    private Long videojuego;
+
+    private Videojuego videojuego;
 
     private TextView tvErrorFotoProducto;
+    private TextView tvErrorVideojuegoProducto;
 
     private List<Foto> fotoList;
 
@@ -64,11 +77,16 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         etDescripcionProducto = (EditText) findViewById(R.id.etDescripcionProducto);
         viewPagerProducto = (ViewPager) findViewById(R.id.viewPagerProducto);
         btnEscogerVideojuego = (Button) findViewById(R.id.btnEscogerVideojuego);
+        llBuscadorItem = (LinearLayout) findViewById(R.id.llBuscadorItem);
+        ivVideojuego = (ImageView) findViewById(R.id.imagenVideojuego);
+        tvNombreVideojuego = (TextView) findViewById(R.id.nombreVideojuego);
         btnSubirFoto = (Button) findViewById(R.id.btnSubirFoto);
         btnHacerFoto = (Button) findViewById(R.id.btnHacerFoto);
         btnCrearProducto = (Button) findViewById(R.id.btnCrearProducto);
         tvErrorFotoProducto = (TextView) findViewById(R.id.tv_error_fotos);
+        tvErrorVideojuegoProducto = (TextView) findViewById(R.id.tv_error_videojuego);
 
+        llBuscadorItem.setVisibility(View.INVISIBLE);
 
         btnEscogerVideojuego.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +129,17 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             case (MY_CHILD_ACTIVITY): {
                 if (resultCode == RESULT_OK) {
                     Bundle extras = data.getExtras();
-                    videojuego = Long.parseLong(extras.getString("videojuego"));
-                    Log.e("CrearProductoActivity->", videojuego.toString());
+                    videojuego = extras.getParcelable("videojuego");
+                    if (videojuego != null) {
+                        tvNombreVideojuego.setText(videojuego.getNombre());
+
+                        String caratula = videojuego.getCaratula();
+                        if (!caratula.equals("")) {
+                            Picasso.with(this).load(caratula).into(ivVideojuego);
+                        }
+
+                        llBuscadorItem.setVisibility(View.VISIBLE);
+                    }
                 }
                 break;
             }
@@ -165,6 +192,7 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         etPrecioProducto.setError(null);
         etDescripcionProducto.setError(null);
         tvErrorFotoProducto.setVisibility(View.INVISIBLE);
+        tvErrorVideojuegoProducto.setVisibility(View.INVISIBLE);
 
         boolean cancel = false;
         View focusView = null;
@@ -209,6 +237,14 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
 
         if (fotoList.size() == 0) {
             tvErrorFotoProducto.setVisibility(View.VISIBLE);
+            focusView = etPrecioProducto;
+
+            cancel = true;
+        }
+
+        if (videojuego == null) {
+            tvErrorVideojuegoProducto.setVisibility(View.VISIBLE);
+            focusView = etPrecioProducto;
             cancel = true;
         }
 
@@ -219,20 +255,12 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             producto.setNombre(etNombreProducto.getText().toString());
             producto.setDescripcion(etDescripcionProducto.getText().toString());
             producto.setPrecio(Double.parseDouble(etPrecioProducto.getText().toString()));
-            producto.setVideojuego(1L);
+            producto.setVideojuego(videojuego.getId());
             Set<Foto> set = new HashSet<>(fotoList);
             producto.setFotos(set);
 
-            ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
-        }
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            videojuego = extras.getLong("videojuego");
+            ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
         }
     }
 
@@ -241,7 +269,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         Intent i = new Intent(CrearProductoActivity.this, ProductoListActivity.class);
         i.putExtra("productoCreado", true);
         startActivity(i);
-        Log.e("CrearProductoActivity->", "En teoría ha ido bien");
     }
     @Override
     public void onFailure(Throwable t) {

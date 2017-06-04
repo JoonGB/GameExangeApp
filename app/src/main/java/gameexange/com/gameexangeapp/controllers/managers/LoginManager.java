@@ -13,6 +13,7 @@ public class LoginManager {
     private UserToken userToken;
     private Context context;
     private String bearerToken;
+    private String usuario;
 
     private LoginManager() {
     }
@@ -25,7 +26,7 @@ public class LoginManager {
         return ourInstance;
     }
 
-    public synchronized void performLogin(String username, String password, final LoginCallback loginCallback){
+    public synchronized void performLogin(final String username, String password, final LoginCallback loginCallback){
         Call<UserToken> call =  TokenManager.getInstance().getUserToken(username, password);
 
         call.enqueue(new Callback<UserToken>() {
@@ -37,7 +38,9 @@ public class LoginManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
+
                     bearerToken = "Bearer " + userToken.getAccessToken();
+                    usuario = username;
                     loginCallback.onSuccess(userToken);
                 } else {
                     loginCallback.onFailure(new Throwable("ERROR " + code + ", " + response.raw().message()));
@@ -59,4 +62,10 @@ public class LoginManager {
     public String getBearerToken() {
         return bearerToken;
     }
+
+    public String getUsuario(){
+        return usuario;
+    }
+
+
 }

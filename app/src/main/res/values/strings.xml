@@ -30,7 +30,7 @@
     <!-- Creación de productos -->
     <string name="crear_nombre_producto">¿Qué quieres vender?</string>
     <string name="crear_precio_producto">¿Cuanto quieres recibir?</string>
-    <string name="crear_descripcion_producto">Decríbenos un poco tu producto...</string>
+    <string name="crear_descripcion_producto">Descríbenos un poco tu producto&#8230;</string>
     <string name="crear_videojuego_producto">¿De qué videojuego es tu producto?</string>
     <string name="crear_fotos_producto">¡Sube alguna foto!</string>
     <string name="crear_fotos_subir_foto">Subir de la galería</string>
@@ -43,6 +43,8 @@
     <string name="error_precio_formato_producto">No es un precio válido</string>
     <string name="error_descripcion_producto">La descripción del producto es obligatoria</string>
     <string name="error_descripcion_corto_producto">Esta descripción es demasiado corta para el producto</string>
+    <string name="error_videojuego_producto">Es obligatorio escoger un videojuego!</string>
+
 
 
     <!-- ERRORES DE PERMISOS -->

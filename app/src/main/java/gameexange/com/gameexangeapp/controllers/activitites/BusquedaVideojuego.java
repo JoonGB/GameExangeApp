@@ -103,7 +103,8 @@ public class BusquedaVideojuego extends AppCompatActivity implements VideojuegoC
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (videojuegos.get(i).getId() != null) {
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("videojuego", videojuegos.get(i).getId().toString());
+                    Videojuego videojuego = videojuegos.get(i);
+                    resultIntent.putExtra("videojuego", videojuego);
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 }
@@ -120,7 +121,7 @@ public class BusquedaVideojuego extends AppCompatActivity implements VideojuegoC
 
     @Override
     public void onFailure(Throwable t) {
-        List<Videojuego> videojuegos = new ArrayList<>();
+       /* List<Videojuego> videojuegos = new ArrayList<>();
         videojuegos = new ArrayList<>();
         Videojuego nuevoVideojuego = new Videojuego();
         nuevoVideojuego.setId(7346L);
@@ -133,7 +134,7 @@ public class BusquedaVideojuego extends AppCompatActivity implements VideojuegoC
         nuevoVideojuego2.setMiniatura("http://images.igdb.com/igdb/image/upload/t_thumb/cmtplicvdajycqx2vz6t.png");
         videojuegos.add(nuevoVideojuego2);
         VideojuegoListAdapter adapter = new VideojuegoListAdapter(this, videojuegos);
-        lvBusqueda.setAdapter(adapter);
+        lvBusqueda.setAdapter(adapter);*/
     }
 
 
