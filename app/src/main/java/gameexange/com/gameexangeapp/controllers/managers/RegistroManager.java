@@ -34,7 +34,7 @@ public class RegistroManager {
 
     public synchronized void Register(final RegistroCallback registerCallback, User user) {
         Call<Void> call = registerService.registerAccount(user);
-       // user.setEmail("aa@aabaa.com");
+        
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

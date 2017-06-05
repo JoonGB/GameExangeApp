@@ -19,6 +19,7 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
     private EditText etUsername;
     private EditText etPassword1;
     private EditText etPassword2;
+    private EditText etEmail;
     private ProgressDialog progressDialog;
 
     @Override
@@ -26,18 +27,13 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-
-         etUsername = (EditText) findViewById(R.id.username);
-         etPassword1 = (EditText) findViewById(R.id.pass);
-         etPassword2 = (EditText) findViewById(R.id.etBusqueda);
-         progressDialog = new ProgressDialog(this);
-
+        etUsername = (EditText) findViewById(R.id.username);
+        etPassword1 = (EditText) findViewById(R.id.pass);
+        etPassword2 = (EditText) findViewById(R.id.pass2);
+        etEmail = (EditText) findViewById(R.id.email);
+        progressDialog = new ProgressDialog(this);
 
         final Button btnRegistro = (Button) findViewById(R.id.btnRegistro);
-
-
-        Bundle extras = getIntent().getExtras();
-
 
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +55,7 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
         String username = etUsername.getText().toString();
         String password1 = etPassword1.getText().toString();
         String password2 = etPassword2.getText().toString();
+        String email = etEmail.getText().toString();
 
 
         boolean cancelar = false;
@@ -91,15 +88,23 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
             cancelar = true;
         }
 
+        if (email.equals("")) {
+            etEmail.setError(getString(R.string.error_field_required));
+            focusView = etEmail;
+            cancelar = true;
+        } else if (!validarEmail(email)) {
+            etEmail.setError("No es una dirección válida");
+            focusView = etEmail;
+            cancelar = true;
+        }
 
         if (cancelar) {
-
             progressDialog.dismiss();
             focusView.requestFocus();
         } else {
             User user = new User();
             user.setLogin(username);
-            user.setEmail(username + "@gmail.com");
+            user.setEmail(email);
             user.setPassword(password1);
             RegistroManager.getInstance().Register(RegistroActivity.this,user);
         }
@@ -110,7 +115,7 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
     @Override
     public void onSuccessRegister() {
         Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-        intent.putExtra("errorProducto", true);
+        intent.putExtra("registrado", true);
         startActivity(intent);
     }
 
@@ -129,6 +134,14 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
         }
         return false;
     }
+
+    private boolean validarEmail(String email) {
+        if(email.contains("@")){
+            return true;
+        }
+        return false;
+    }
+
 
 
 
