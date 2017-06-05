@@ -7,8 +7,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="2eaface3446b2d6b3d689423a2e2cb6985f24810">
+        sha1="c5bee5f93fd4552c6261561566f769e0556f762e">
         <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9a7ca0191c396ca580f02104fd8ad09e4b83a0a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Usuarios\JonGarcia\.android\build-cache\8837d787a6bb878f82e3893a22f71daffc67c3b5\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8218789edb56bdcfff7da48e892b37460fc707e2">
+        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a9aeebada58fc086a45a7c15c0dfce3000fd9fe7\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -18,6 +27,15 @@
         revision="25.0.0"
         sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_3a9e576f805a5b457d8f64191df39a2d5a9c1a4b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Usuarios\JonGarcia\.android\build-cache\de353a9ca52586f77e1a8189f0504bdf67923151\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="D:\Usuarios\JonGarcia\Desktop\GameExangeApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_675c81f2e49c2f5428eb495d66cd714b044ac93b\classes.dex" />
     </item>
 
 </items>

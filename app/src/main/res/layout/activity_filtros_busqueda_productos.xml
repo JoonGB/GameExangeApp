@@ -244,7 +244,6 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal"
-                android:visibility="invisible"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/btnFiltroVideojuego"
@@ -258,6 +257,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="0dp"
+                    android:visibility="invisible"
                     app:srcCompat="@mipmap/ic_launcher" />
 
                 <LinearLayout
@@ -270,12 +270,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/nombreVideojuego"
+                        android:id="@+id/tvNombreVideojuego"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="Selecciona un videojuego..."
                         android:textColor="@android:color/white"
                         android:textSize="13sp"
                         android:textStyle="normal|bold" />

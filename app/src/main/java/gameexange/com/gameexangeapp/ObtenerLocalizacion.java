@@ -54,22 +54,33 @@ import java.util.concurrent.TimeUnit;
 
 public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReadyCallback {
 
-    private Button btnConfirmLocation;
-
-    private PlacesAutoCompleteAdapter adapter;
-    private AutoCompleteTextView actvLocation;
-
-    private TextView locationLatitude;
-    private TextView locationLongitude;
-
-
+    private final static int LOCALIZACION_ACTIVITY = 2;
     private static final int PLACE_PICKER_FLAG = 1;
-
     private static final LatLngBounds BOUNDS_GREATER_BARCELONA = new LatLngBounds(
             new LatLng(41.34794849344354, 2.217864990234375), new LatLng(41.41338061238166, 2.1031951904296875));
     protected GoogleApiClient mGoogleApiClient;
+    private PlacesAutoCompleteAdapter adapter;
+    private AutoCompleteTextView actvLocation;
+    private TextView locationLatitude;
+    private TextView locationLongitude;
+    private Double latitude = 41.3850639;
+    private Double longitude = 2.1734034999999494;
     private GoogleMap mMap;
     private MarkerOptions marker;
+
+    private Button btnConfirmLocation;
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
+            = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(PlaceBuffer places) {
+            if (!places.getStatus().isSuccess()) {
+                Log.e("Place", "Resultados no completados. Error: " +
+                        places.getStatus().toString());
+                return;
+            }
+            final Place place = places.get(0);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +126,10 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
                                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
                                     mMap.addMarker(marker);
                                     mMap.animateCamera(CameraUpdateFactory.newLatLng(myPlace.getLatLng()));
-                                    locationLatitude.setText("" + myPlace.getLatLng().latitude);
-                                    locationLongitude.setText("" + myPlace.getLatLng().longitude);
+                                    latitude = myPlace.getLatLng().latitude;
+                                    locationLatitude.setText("" + latitude);
+                                    longitude = myPlace.getLatLng().longitude;
+                                    locationLongitude.setText("" + longitude);
                                 }
                                 places.release();
                             }
@@ -124,8 +137,36 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
             }
         });
 
+        btnConfirmLocation = (Button) findViewById(R.id.btnConfirmLocation);
+        btnConfirmLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (latitude != null && longitude != null) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("latitude", latitude);
+                    resultIntent.putExtra("longitude", longitude);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
+            }
+        });
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case PLACE_PICKER_FLAG:
+                if (resultCode == RESULT_OK) {
+                    Place place = PlacePicker.getPlace(data, this);
+                    actvLocation.setText(place.getName() + ", " + place.getAddress());
+                }
+                break;
+        }
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -136,10 +177,10 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
                 .position(new LatLng(41.3850639, 2.1734034999999494))
                 .title("Barcelona, España")
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
-        locationLatitude.setText("" + 41.3850639);
-        locationLongitude.setText("" + 2.1734034999999494);
+        locationLatitude.setText("" + latitude);
+        locationLongitude.setText("" + longitude);
         mMap.addMarker(marker);
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(41.3850639, 2.1734034999999494)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
@@ -152,6 +193,22 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
                 mMap.setMyLocationEnabled(true);
             }
         }
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mMap.clear();
+                marker = new MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
+                mMap.addMarker(marker);
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                latitude = latLng.latitude;
+                locationLatitude.setText("" + latitude);
+                longitude = latLng.longitude;
+                locationLongitude.setText("" + longitude);
+            }
+        });
 
         /*mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
@@ -180,19 +237,6 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PLACE_PICKER_FLAG:
-                    Place place = PlacePicker.getPlace(data, this);
-                    actvLocation.setText(place.getName() + ", " + place.getAddress());
-                    break;
-            }
-        }
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
@@ -203,19 +247,6 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
         mGoogleApiClient.disconnect();
         super.onStop();
     }
-
-    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
-            = new ResultCallback<PlaceBuffer>() {
-        @Override
-        public void onResult(PlaceBuffer places) {
-            if (!places.getStatus().isSuccess()) {
-                Log.e("Place", "Resultados no completados. Error: " +
-                        places.getStatus().toString());
-                return;
-            }
-            final Place place = places.get(0);
-        }
-    };
 
     class PlacesAutoCompleteAdapter extends ArrayAdapter<PlacesAutoCompleteAdapter.PlaceAutocomplete> implements Filterable {
 
@@ -238,10 +269,15 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
             mBounds = bounds;
         }
 
-        @Override public int getCount() {
+        @Override
+        public int getCount() {
             return mResultList.size();
         }
-        @Override public PlaceAutocomplete getItem(int position) { return mResultList.get(position); }
+
+        @Override
+        public PlaceAutocomplete getItem(int position) {
+            return mResultList.get(position);
+        }
 
         @Override
         public Filter getFilter() {
@@ -310,7 +346,9 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
             public CharSequence placeId;
             public CharSequence description;
 
-            PlaceAutocomplete() { }
+            PlaceAutocomplete() {
+            }
+
             PlaceAutocomplete(CharSequence placeId, CharSequence description) {
                 this.placeId = placeId;
                 this.description = description;

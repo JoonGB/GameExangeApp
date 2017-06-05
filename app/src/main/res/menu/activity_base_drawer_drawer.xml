@@ -35,6 +35,10 @@
             android:id="@+id/nav_localizacion"
             android:icon="@mipmap/ic_location"
             android:title="Obtener localización" />
+        <item
+            android:id="@+id/nav_productos"
+            android:icon="@mipmap/ic_location"
+            android:title="Lista de productos" />
     </group>
 
 
