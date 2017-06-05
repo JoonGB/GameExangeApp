@@ -77,9 +77,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         etDescripcionProducto = (EditText) findViewById(R.id.etDescripcionProducto);
         viewPagerProducto = (ViewPager) findViewById(R.id.viewPagerProducto);
         btnEscogerVideojuego = (Button) findViewById(R.id.btnEscogerVideojuego);
-        llBuscadorItem = (LinearLayout) findViewById(R.id.llBuscadorItem);
-        ivVideojuego = (ImageView) findViewById(R.id.imagenVideojuego);
-        tvNombreVideojuego = (TextView) findViewById(R.id.nombreVideojuego);
         btnSubirFoto = (Button) findViewById(R.id.btnSubirFoto);
         btnHacerFoto = (Button) findViewById(R.id.btnHacerFoto);
         btnCrearProducto = (Button) findViewById(R.id.btnCrearProducto);

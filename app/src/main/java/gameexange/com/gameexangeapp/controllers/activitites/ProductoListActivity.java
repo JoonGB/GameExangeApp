@@ -133,9 +133,9 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.products_item, viewGroup, false);
                 holder = new ViewHolder();
-                holder.tvNombre = (TextView) view.findViewById(R.id.nombre);
-                holder.tvPrecio = (TextView) view.findViewById(R.id.precio);
-                holder.imImagen = (ImageView) view.findViewById(R.id.foto);
+                holder.tvNombre = (TextView) view.findViewById(R.id.tvNombre);
+                holder.tvPrecio = (TextView) view.findViewById(R.id.tvPrecio);
+                holder.imImagen = (ImageView) view.findViewById(R.id.ivProducto);
 
                 view.setTag(holder);
             } else {

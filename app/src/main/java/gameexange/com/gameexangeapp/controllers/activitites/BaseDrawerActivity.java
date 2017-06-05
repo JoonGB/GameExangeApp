@@ -17,6 +17,8 @@ import android.widget.Toast;
 import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
 import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
+import gameexange.com.gameexangeapp.ResultadosBusqueda;
+
 public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private View view;
 
@@ -117,6 +119,9 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
             startActivity(intent);
         } else if (id == R.id.nav_localizacion) {
             Intent intent = new Intent(this, ObtenerLocalizacion.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_productos) {
+            Intent intent = new Intent(this, ResultadosBusqueda.class);
             startActivity(intent);
         }
 

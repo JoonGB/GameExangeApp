@@ -46,7 +46,6 @@
     <string name="error_videojuego_producto">Es obligatorio escoger un videojuego!</string>
 
 
-
     <!-- ERRORES DE PERMISOS -->
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -54,4 +53,5 @@
     <string name="title_activity_videojuego_list">VideojuegoListActivity</string>
     <string name="title_activity_filtros_busqueda_producto">FiltrosBusquedaProducto</string>
     <string name="title_activity_obtener_localizacion">Map</string>
+    <string name="title_activity_resultados_busqueda">ResultadosBusqueda</string>
 </resources>
