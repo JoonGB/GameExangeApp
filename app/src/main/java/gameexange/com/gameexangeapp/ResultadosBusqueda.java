@@ -65,13 +65,13 @@ public class ResultadosBusqueda extends AppCompatActivity implements ProductoCal
         List<Producto> productosFiltrados = new ArrayList<>();
         for (Producto producto : productos) {
             boolean aceptado = true;
-            if(busquedaFiltros != null && busquedaFiltros.replace(" ", "") != "") {
+            if(busquedaFiltros != null && busquedaFiltros.replace(" ", "") == "") {
                 if(!producto.getNombre().toLowerCase().contains(busquedaFiltros)){
                     aceptado = false;
                 }
             }
-            if (videojuego != null) {
-                if(producto.getVideojuego() != videojuego){
+            if (videojuego != 0) {
+                if(producto.getVideojuego().longValue() != videojuego.longValue()){
                     aceptado = false;
                 }
             }

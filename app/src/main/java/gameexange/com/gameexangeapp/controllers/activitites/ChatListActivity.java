@@ -79,75 +79,75 @@ public class ChatListActivity extends AppCompatActivity implements ChatCallback 
     }
 
     @Override
-        public void onFailure(Throwable t) {
-            Log.e("ChatListActivity->", t.getMessage());
+    public void onFailure(Throwable t) {
+        Log.e("ChatListActivity->", t.getMessage());
+    }
+
+    public class ChatListAdapter extends BaseAdapter {
+        private Context context;
+        private List<Conversacion> conversacionList;
+        private Conversacion conversacion;
+
+        public ChatListAdapter(Context context, List<Conversacion> conversacionList) {
+            this.context = context;
+            this.conversacionList = conversacionList;
         }
 
-        public class ChatListAdapter extends BaseAdapter {
-            private Context context;
-            private List<Conversacion> conversacionList;
-            private Conversacion conversacion;
+        @Override public int getCount() {
+            return conversacionList.size();
+        }
+        @Override public Object getItem(int position) {
+            return conversacionList.get(position);
+        }
+        @Override public long getItemId(int position) {
+            return conversacionList.get(position).getId();
+        }
 
-            public ChatListAdapter(Context context, List<Conversacion> conversacionList) {
-                this.context = context;
-                this.conversacionList = conversacionList;
+        private class ViewHolder {
+            private ImageView imImagenUsuario;
+            private TextView tvNombreUsuario;
+            private TextView tvNombreProducto;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup viewGroup) {
+            ViewHolder holder;
+            if (view == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = inflater.inflate(R.layout.chats_item, viewGroup, false);
+                holder = new ViewHolder();
+                holder.imImagenUsuario = (ImageView) view.findViewById(R.id.imagenUsuario);
+                holder.tvNombreUsuario = (TextView) view.findViewById(R.id.nombreUsuario);
+                holder.tvNombreProducto = (TextView) view.findViewById(R.id.nombreProducto);
+
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
             }
 
-            @Override public int getCount() {
-                return conversacionList.size();
-            }
-            @Override public Object getItem(int position) {
-                return conversacionList.get(position);
-            }
-            @Override public long getItemId(int position) {
-                return conversacionList.get(position).getId();
+            conversacion = conversacionList.get(position);
+            UserExt usuario;
+            if (conversacion.getUsuario1().getUser().getLogin().equals(userLogin)) {
+                usuario = conversacion.getUsuario2();
+            } else {
+                usuario = conversacion.getUsuario1();
             }
 
-            private class ViewHolder {
-                private ImageView imImagenUsuario;
-                private TextView tvNombreUsuario;
-                private TextView tvNombreProducto;
+            if (usuario.getFoto() != null) {
+                String fotoUsuario = usuario.getFoto();
+                byte[] imageAsBytes = Base64.decode(fotoUsuario, Base64.DEFAULT);
+                holder.imImagenUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                holder.imImagenUsuario.setMaxWidth(80);
+            } else {
+                holder.imImagenUsuario.setImageResource(R.drawable.logo);
             }
 
-            @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
-                ViewHolder holder;
-                if (view == null) {
-                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    view = inflater.inflate(R.layout.chats_item, viewGroup, false);
-                    holder = new ViewHolder();
-                    holder.imImagenUsuario = (ImageView) view.findViewById(R.id.imagenUsuario);
-                    holder.tvNombreUsuario = (TextView) view.findViewById(R.id.nombreUsuario);
-                    holder.tvNombreProducto = (TextView) view.findViewById(R.id.nombreProducto);
+            holder.tvNombreUsuario.setText(usuario.getUser().getLogin());
+            holder.tvNombreProducto.setText(conversacion.getProducto().getNombre());
 
-                    view.setTag(holder);
-                } else {
-                    holder = (ViewHolder) view.getTag();
-                }
-
-                conversacion = conversacionList.get(position);
-                UserExt usuario;
-                if (conversacion.getUsuario1().getUser().getLogin().equals(userLogin)) {
-                    usuario = conversacion.getUsuario2();
-                } else {
-                    usuario = conversacion.getUsuario1();
-                }
-
-                if (usuario.getFoto() != null) {
-                    String fotoUsuario = usuario.getFoto();
-                    byte[] imageAsBytes = Base64.decode(fotoUsuario, Base64.DEFAULT);
-                    holder.imImagenUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                    holder.imImagenUsuario.setMaxWidth(80);
-                } else {
-                    holder.imImagenUsuario.setImageResource(R.drawable.logo);
-                }
-
-                holder.tvNombreUsuario.setText(usuario.getUser().getLogin());
-                holder.tvNombreProducto.setText(conversacion.getProducto().getNombre());
-
-                Log.e("ChatListAdapter->", conversacion.toString());
-                return view;
-            }
+            Log.e("ChatListAdapter->", conversacion.toString());
+            return view;
         }
     }
+}
 
