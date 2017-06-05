@@ -10,6 +10,7 @@ import java.util.Map;
 import gameexange.com.gameexangeapp.controllers.services.ProductoService;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
+import gameexange.com.gameexangeapp.models.User;
 import gameexange.com.gameexangeapp.util.CustomProperties;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -275,6 +276,10 @@ public class ProductoManager {
     }
 
     public synchronized void crearProducto(final ProductoCallback productoCallback, Producto producto) {
+        String usuario = LoginManager.getInstance().getUsuario();
+        User user = new User();
+        user.setLogin(usuario);
+        producto.setUsuario(user);
         Call<Producto> call = productoService.crearProducto(LoginManager.getInstance().getBearerToken(), producto);
         call.enqueue(new Callback<Producto>() {
             @Override

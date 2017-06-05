@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,6 +35,13 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.getBoolean("registrado")) {
+                Toast.makeText(this, "Te has registrado correctamente!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         etUsuario = (EditText) findViewById(R.id.user);
         etPassword = (EditText) findViewById(R.id.password);
@@ -106,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     @Override

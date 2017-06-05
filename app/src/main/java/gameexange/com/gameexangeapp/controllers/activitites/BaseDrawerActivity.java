@@ -14,7 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
+import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
+import gameexange.com.gameexangeapp.ResultadosBusqueda;
+
 public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private View view;
 
@@ -80,7 +84,7 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.base_drawer, menu);
+        getMenuInflater().inflate(R.menu.busqueda_videojuego_bar, menu);
         return true;
     }
 
@@ -88,8 +92,8 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_search) {
+            startActivity(new Intent(BaseDrawerActivity.this, FiltrosBusquedaProductos.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,13 +109,19 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.nav_videojuegos_deseados) {
             Toast.makeText(this, "¿Qué deseas?", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_mis_chats) {
-            Toast.makeText(this, "Mis chats", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(BaseDrawerActivity.this, ChatListActivity.class));
         } else if (id == R.id.nav_ajustes) {
             Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_compartir) {
             Toast.makeText(this, "Gracias por compartir", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_busqueda_videojuegos) {
             Intent intent = new Intent(this, BusquedaVideojuego.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_localizacion) {
+            Intent intent = new Intent(this, ObtenerLocalizacion.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_productos) {
+            Intent intent = new Intent(this, ResultadosBusqueda.class);
             startActivity(intent);
         }
 

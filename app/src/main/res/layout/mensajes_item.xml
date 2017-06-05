@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="#FFF">
+
+    <TextView
+        android:id="@+id/mensaje1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/mensaje"
+        android:text="Mensaje del receptor"
+        android:textColor="@android:color/black"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/mensaje2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginTop="8dp"
+        android:textAlignment="textEnd"
+        android:background="@drawable/mensaje"
+        android:text="Mensaje del emisor"
+        android:textColor="@android:color/black"
+        android:textSize="22dp" />
+
+
+</RelativeLayout>

@@ -8,14 +8,17 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,22 +33,35 @@ import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
+import gameexange.com.gameexangeapp.models.Videojuego;
 
 
 public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback {
 
     private final static int SELECT_PHOTO = 1;
     private final static int CAPTURE_PHOTO = 2;
+    private final static int MY_CHILD_ACTIVITY = 3;
 
     private EditText etNombreProducto;
     private EditText etPrecioProducto;
     private EditText etDescripcionProducto;
+
+    private Button btnEscogerVideojuego;
+    private LinearLayout llBuscadorItem;
+    private ImageView ivVideojuego;
+    private TextView tvNombreVideojuego;
+
     private ViewPager viewPagerProducto;
     private Button btnSubirFoto;
     private Button btnHacerFoto;
+
     private Button btnCrearProducto;
 
+
+    private Videojuego videojuego;
+
     private TextView tvErrorFotoProducto;
+    private TextView tvErrorVideojuegoProducto;
 
     private List<Foto> fotoList;
 
@@ -60,10 +76,22 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         etPrecioProducto = (EditText) findViewById(R.id.etPrecioProducto);
         etDescripcionProducto = (EditText) findViewById(R.id.etDescripcionProducto);
         viewPagerProducto = (ViewPager) findViewById(R.id.viewPagerProducto);
+        btnEscogerVideojuego = (Button) findViewById(R.id.btnEscogerVideojuego);
         btnSubirFoto = (Button) findViewById(R.id.btnSubirFoto);
         btnHacerFoto = (Button) findViewById(R.id.btnHacerFoto);
         btnCrearProducto = (Button) findViewById(R.id.btnCrearProducto);
         tvErrorFotoProducto = (TextView) findViewById(R.id.tv_error_fotos);
+        tvErrorVideojuegoProducto = (TextView) findViewById(R.id.tv_error_videojuego);
+
+        llBuscadorItem.setVisibility(View.INVISIBLE);
+
+        btnEscogerVideojuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CrearProductoActivity.this, BusquedaVideojuego.class);
+                startActivityForResult(i, MY_CHILD_ACTIVITY);
+            }
+        });
 
         btnSubirFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,45 +118,69 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
                crearProducto();
             }
         });
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Foto foto = new Foto();
-        if (requestCode == CAPTURE_PHOTO && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            foto.setFoto(Base64.encodeToString(byteArray, Base64.DEFAULT));
-            fotoList.add(foto);
-        }
+        switch(requestCode) {
+            case (MY_CHILD_ACTIVITY): {
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    videojuego = extras.getParcelable("videojuego");
+                    if (videojuego != null) {
+                        tvNombreVideojuego.setText(videojuego.getNombre());
 
-        if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
-            Uri img = data.getData();
-            if (img != null) {
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(img);
-                    ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-                    byte[] buffer = new byte[1024];
+                        String caratula = videojuego.getCaratula();
+                        if (!caratula.equals("")) {
+                            Picasso.with(this).load(caratula).into(ivVideojuego);
+                        }
 
-                    int len = 0;
-                    while ((len = inputStream.read(buffer)) != -1) {
-                        byteBuffer.write(buffer, 0, len);
+                        llBuscadorItem.setVisibility(View.VISIBLE);
                     }
-
-                    byte[] inputData = byteBuffer.toByteArray();
-                    foto.setFoto(Base64.encodeToString(inputData, Base64.DEFAULT));
+                }
+                break;
+            }
+            case (CAPTURE_PHOTO): {
+                if (resultCode == RESULT_OK) {
+                    Foto foto = new Foto();
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    foto.setFoto(Base64.encodeToString(byteArray, Base64.DEFAULT));
                     fotoList.add(foto);
-                } catch (IOException e) {
-                    Log.e("CrearProductoActivity->", e.toString());
+                    FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, fotoList);
+                    viewPagerProducto.setAdapter(fotoPagerAdapter);
+                }
+            }
+            case (SELECT_PHOTO): {
+                if (resultCode == RESULT_OK) {
+                    Foto foto = new Foto();
+                    Uri img = data.getData();
+                    if (img != null) {
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(img);
+                            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                            byte[] buffer = new byte[1024];
+
+                            int len = 0;
+                            while ((len = inputStream.read(buffer)) != -1) {
+                                byteBuffer.write(buffer, 0, len);
+                            }
+
+                            byte[] inputData = byteBuffer.toByteArray();
+                            foto.setFoto(Base64.encodeToString(inputData, Base64.DEFAULT));
+                            fotoList.add(foto);
+                        } catch (IOException e) {
+                            Log.e("CrearProductoActivity->", e.toString());
+                        }
+                        FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, fotoList);
+                        viewPagerProducto.setAdapter(fotoPagerAdapter);
+                    }
                 }
             }
         }
-
-        FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, fotoList);
-        viewPagerProducto.setAdapter(fotoPagerAdapter);
     }
 
     private void crearProducto() {
@@ -137,6 +189,7 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         etPrecioProducto.setError(null);
         etDescripcionProducto.setError(null);
         tvErrorFotoProducto.setVisibility(View.INVISIBLE);
+        tvErrorVideojuegoProducto.setVisibility(View.INVISIBLE);
 
         boolean cancel = false;
         View focusView = null;
@@ -181,6 +234,14 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
 
         if (fotoList.size() == 0) {
             tvErrorFotoProducto.setVisibility(View.VISIBLE);
+            focusView = etPrecioProducto;
+
+            cancel = true;
+        }
+
+        if (videojuego == null) {
+            tvErrorVideojuegoProducto.setVisibility(View.VISIBLE);
+            focusView = etPrecioProducto;
             cancel = true;
         }
 
@@ -191,9 +252,10 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             producto.setNombre(etNombreProducto.getText().toString());
             producto.setDescripcion(etDescripcionProducto.getText().toString());
             producto.setPrecio(Double.parseDouble(etPrecioProducto.getText().toString()));
-            producto.setVideojuego(1L);
+            producto.setVideojuego(videojuego.getId());
             Set<Foto> set = new HashSet<>(fotoList);
             producto.setFotos(set);
+
 
             ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
         }
@@ -204,8 +266,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         Intent i = new Intent(CrearProductoActivity.this, ProductoListActivity.class);
         i.putExtra("productoCreado", true);
         startActivity(i);
-        Toast.makeText(this, "En teoría ha ido bien", Toast.LENGTH_SHORT).show();
-        Log.e("CrearProductoActivity->", "En teoría ha ido bien");
     }
     @Override
     public void onFailure(Throwable t) {

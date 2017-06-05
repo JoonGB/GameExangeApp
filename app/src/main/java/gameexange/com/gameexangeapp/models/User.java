@@ -1,11 +1,14 @@
 package gameexange.com.gameexangeapp.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-public class User {
+public class User implements Parcelable {
 
     private Long id;
     private String login;
@@ -25,6 +28,31 @@ public class User {
 
     public User(String username, String password1) {
     }
+
+    protected User(Parcel in) {
+        login = in.readString();
+        password = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
+        activated = in.readByte() != 0;
+        langKey = in.readString();
+        activationKey = in.readString();
+        resetKey = in.readString();
+        resetDate = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -145,5 +173,24 @@ public class User {
                 ", langKey='" + langKey + '\'' +
                 ", activationKey='" + activationKey + '\'' +
                 "}";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(login);
+        parcel.writeString(password);
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeString(email);
+        parcel.writeByte((byte) (activated ? 1 : 0));
+        parcel.writeString(langKey);
+        parcel.writeString(activationKey);
+        parcel.writeString(resetKey);
+        parcel.writeString(resetDate);
     }
 }
