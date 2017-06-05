@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
     private TextView tvFecha;
     private TextView tvVideojuego;
 
+    private Button btnNegociar;
+
     LayoutInflater inflater;
     LinearLayout linearLayout;
 
@@ -44,53 +47,56 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout) findViewById(R.id.content_layout);
 
-
-
-
         Bundle extras = getIntent().getExtras();
         Long productoId = extras.getLong("producto");
         ProductoManager.getInstance().getProductoByIdDTO(ProductoDetalleActivity.this, productoId);
      }
 
     @Override
-    public void onSuccessProducto(Producto producto) {
+    public void onSuccessProducto(final Producto producto) {
         Log.e("ProductosActivity->", producto.toString());
 
-        if (producto.getUsuarioext() == null) {
-            Intent intent = new Intent(ProductoDetalleActivity.this, ProductoListActivity.class);
-            intent.putExtra("errorProducto", true);
-            startActivity(intent);
-        } else {
-            View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
+        View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
 
-            imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
-            tvUsuario = (TextView) view.findViewById(R.id.usuario);
-            viewPager = (ViewPager) view.findViewById(R.id.pager);
-            tvNombre = (TextView) view.findViewById(R.id.nombre);
-            tvPrecio = (TextView) view.findViewById(R.id.precio);
-            tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
-            tvFecha = (TextView) view.findViewById(R.id.fecha);
-            tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
+        imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
+        tvUsuario = (TextView) view.findViewById(R.id.usuario);
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
+        tvNombre = (TextView) view.findViewById(R.id.nombre);
+        tvPrecio = (TextView) view.findViewById(R.id.precio);
+        tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
+        tvFecha = (TextView) view.findViewById(R.id.fecha);
+        tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
+        btnNegociar = (Button) view.findViewById(R.id.btnNegociar);
 
-
+        if (producto.getUsuarioext() != null) {
             if (producto.getUsuarioext().getFoto() != null) {
                 byte[] imageUsuarioAsBytes = Base64.decode(producto.getUsuarioext().getFoto(), Base64.DEFAULT);
                 imUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageUsuarioAsBytes, 0, imageUsuarioAsBytes.length));
                 imUsuario.setMaxWidth(80);
             }
-            tvUsuario.setText(producto.getUsuario().getLogin());
-
-            FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, new ArrayList<>(producto.getFotos()));
-            viewPager.setAdapter(fotoPagerAdapter);
-
-            tvNombre.setText(producto.getNombre());
-            tvPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
-            tvDescripcion.setText(producto.getDescripcion());
-
-
-            tvFecha.setText(producto.getCreado());
-            tvVideojuego.setText(producto.getVideojuego().toString());
         }
+        tvUsuario.setText(producto.getUsuario().getLogin());
+
+        FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, new ArrayList<>(producto.getFotos()));
+        viewPager.setAdapter(fotoPagerAdapter);
+
+        tvNombre.setText(producto.getNombre());
+        tvPrecio.setText(String.valueOf(producto.getPrecio()) + " €");
+        tvDescripcion.setText(producto.getDescripcion());
+
+
+        tvFecha.setText(producto.getCreado());
+        tvVideojuego.setText(producto.getVideojuego().toString());
+
+        btnNegociar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(ProductoDetalleActivity.this, ChatDetalleActivity.class);
+                intent.putExtra("chatNuevo", true);
+            intent.putExtra("producto", producto);
+            startActivity(intent);
+            }
+        });
     }
 
     @Override

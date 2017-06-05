@@ -1,10 +1,13 @@
 package gameexange.com.gameexangeapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Arrays;
 
 import gameexange.com.gameexangeapp.models.enumeration.Genero;
 
-public class UserExt {
+public class UserExt implements Parcelable {
 
     private Long id;
     private Genero genero;
@@ -15,6 +18,28 @@ public class UserExt {
     private String fotoContentType;
     private String telefono;
     private User user;
+
+    public UserExt(){}
+    protected UserExt(Parcel in) {
+        ciudad = in.readString();
+        fechaNacimiento = in.readString();
+        foto = in.readString();
+        fotoContentType = in.readString();
+        telefono = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<UserExt> CREATOR = new Creator<UserExt>() {
+        @Override
+        public UserExt createFromParcel(Parcel in) {
+            return new UserExt(in);
+        }
+
+        @Override
+        public UserExt[] newArray(int size) {
+            return new UserExt[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -134,5 +159,20 @@ public class UserExt {
                 ", fotoContentType='" + fotoContentType + "'" +
                 ", telefono='" + telefono + "'" +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(ciudad);
+        parcel.writeString(fechaNacimiento);
+        parcel.writeString(foto);
+        parcel.writeString(fotoContentType);
+        parcel.writeString(telefono);
+        parcel.writeParcelable(user, i);
     }
 }

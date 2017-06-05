@@ -107,7 +107,7 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.nav_videojuegos_deseados) {
             Toast.makeText(this, "¿Qué deseas?", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_mis_chats) {
-            Toast.makeText(this, "Mis chats", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(BaseDrawerActivity.this, ChatListActivity.class));
         } else if (id == R.id.nav_ajustes) {
             Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_compartir) {

@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     @Override

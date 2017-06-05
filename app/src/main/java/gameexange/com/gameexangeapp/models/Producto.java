@@ -1,9 +1,12 @@
 package gameexange.com.gameexangeapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class Producto {
+public class Producto implements Parcelable {
 
     private Long id;
     private String descripcion;
@@ -17,6 +20,30 @@ public class Producto {
     private Set<Venta> ventas = new HashSet<>();
     private Foto fotoPrincipal;
     private UserExt usuarioext;
+
+    public Producto() {
+
+    }
+    protected Producto(Parcel in) {
+        id = in.readLong();
+        descripcion = in.readString();
+        creado = in.readString();
+        precio = in.readDouble();
+        nombre = in.readString();
+        videojuego = in.readLong();
+    }
+
+    public static final Creator<Producto> CREATOR = new Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(Parcel in) {
+            return new Producto(in);
+        }
+
+        @Override
+        public Producto[] newArray(int size) {
+            return new Producto[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -164,5 +191,20 @@ public class Producto {
                 ", ventas=" + ventas +
                 ", fotoPrincipal=" + fotoPrincipal +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(descripcion);
+        parcel.writeString(creado);
+        parcel.writeDouble(precio);
+        parcel.writeString(nombre);
+        parcel.writeLong(videojuego);
     }
 }
