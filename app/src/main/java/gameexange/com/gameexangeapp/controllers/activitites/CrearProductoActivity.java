@@ -256,7 +256,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             Set<Foto> set = new HashSet<>(fotoList);
             producto.setFotos(set);
 
-
             ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
         }
     }

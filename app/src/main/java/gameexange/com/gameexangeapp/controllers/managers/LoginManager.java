@@ -3,6 +3,7 @@ package gameexange.com.gameexangeapp.controllers.managers;
 import android.content.Context;
 import android.util.Log;
 
+import gameexange.com.gameexangeapp.models.UserExt;
 import gameexange.com.gameexangeapp.models.UserToken;
 import retrofit2.Call;
 import retrofit2.Callback;
