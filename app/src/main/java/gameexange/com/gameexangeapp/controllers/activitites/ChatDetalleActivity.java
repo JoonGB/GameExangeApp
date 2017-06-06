@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gameexange.com.gameexangeapp.R;
@@ -55,8 +56,8 @@ public class ChatDetalleActivity extends AppCompatActivity implements ChatCallba
             }
 
             if (extras.getBoolean("abrirChat")) {
-                conversacion = extras.getParcelable("chat");
-                ChatManager.getInstance().getAllChatMensajes(ChatDetalleActivity.this, conversacion);
+                Long idchat = extras.getLong("chat");
+                ChatManager.getInstance().getAllChatMensajesById(ChatDetalleActivity.this, idchat);
             }
         }
     }
@@ -84,8 +85,9 @@ public class ChatDetalleActivity extends AppCompatActivity implements ChatCallba
     }
 
     @Override
-    public void onSuccessChat(Conversacion conversacion) {
-        Log.e("SuccessChat->", conversacion.toString());
+    public void onSuccessChat(Conversacion chat) {
+        Log.e("SuccessChat->", chat.toString());
+        conversacion = chat;
         ChatManager.getInstance().getAllChatMensajes(ChatDetalleActivity.this, conversacion);
     }
 

@@ -23,6 +23,12 @@ public interface ChatService {
             @Header("Authorization") String Authorization,
             @Body Conversacion conversacion
     );
+    @GET("api/chats/mensajes/{idchat}")
+    Call<List<Mensaje>> getAllChatMensajesById(
+            @Header("Authorization") String Authorization,
+            @Path("idchat") Long idchat
+    );
+
     @POST("api/chats/nuevo")
     Call<Conversacion> crearNuevoChat(
             @Header("Authorization") String Authorization,
