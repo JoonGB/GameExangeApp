@@ -16,16 +16,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
+import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
-public class ProductoDetalleActivity extends BaseDrawerActivity implements ProductoCallback {
+public class ProductoDetalleActivity extends BaseDrawerActivity implements ProductoCallback, OnMapReadyCallback {
     private ImageView imUsuario;
     private TextView tvUsuario;
     private ViewPager viewPager;
@@ -33,12 +44,15 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
     private TextView tvPrecio;
     private TextView tvDescripcion;
     private TextView tvFecha;
-    private TextView tvVideojuego;
 
     private Button btnNegociar;
 
     LayoutInflater inflater;
     LinearLayout linearLayout;
+
+    private GoogleMap mMap;
+    private double latitud;
+    private double longitud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,10 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
 
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linearLayout = (LinearLayout) findViewById(R.id.content_layout);
+
+        latitud = 41.3850639;
+        longitud = 2.1734034999999494;
+
 
         Bundle extras = getIntent().getExtras();
         Long productoId = extras.getLong("producto");
@@ -58,6 +76,13 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
 
         View view = inflater.inflate(R.layout.producto_detalle, linearLayout);
 
+        latitud = producto.getLatitud();
+        longitud = producto.getLongitud();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapaProducto);
+        mapFragment.getMapAsync(this);
+
         imUsuario = (ImageView) view.findViewById(R.id.foto_usuario);
         tvUsuario = (TextView) view.findViewById(R.id.usuario);
         viewPager = (ViewPager) view.findViewById(R.id.pager);
@@ -65,8 +90,9 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
         tvPrecio = (TextView) view.findViewById(R.id.precio);
         tvDescripcion = (TextView) view.findViewById(R.id.descripcion);
         tvFecha = (TextView) view.findViewById(R.id.fecha);
-        tvVideojuego = (TextView) view.findViewById(R.id.videojuego);
         btnNegociar = (Button) view.findViewById(R.id.btnNegociar);
+
+
 
         if (producto.getUsuarioext() != null) {
             if (producto.getUsuarioext().getFoto() != null) {
@@ -86,7 +112,6 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
 
 
         tvFecha.setText(producto.getCreado());
-        tvVideojuego.setText(producto.getVideojuego().toString());
 
         btnNegociar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,5 +146,22 @@ public class ProductoDetalleActivity extends BaseDrawerActivity implements Produ
     @Override
     public void onSuccessFotoPrincipal(Foto foto) {
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        MarkerOptions marker = new MarkerOptions()
+                .position(new LatLng(latitud, longitud))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
+        mMap.addMarker(marker);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(latitud, longitud)));
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return true;
+            }
+        });
     }
 }

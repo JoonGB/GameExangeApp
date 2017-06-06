@@ -33,6 +33,7 @@
         app:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@mipmap/ic_add" />
 
-    <include layout="@layout/content_base_drawer" />
+    <include
+        layout="@layout/content_base_drawer" />
 
 </android.support.design.widget.CoordinatorLayout>

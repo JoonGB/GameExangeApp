@@ -309,7 +309,8 @@ public class ObtenerLocalizacion extends AppCompatActivity implements OnMapReady
 
         private ArrayList<PlaceAutocomplete> getAutocomplete(CharSequence constraint) {
             if (mGoogleApiClient.isConnected()) {
-                PendingResult<AutocompletePredictionBuffer> results = Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient, constraint.toString(), mBounds, mPlaceFilter);
+                PendingResult<AutocompletePredictionBuffer> results = Places.GeoDataApi
+                        .getAutocompletePredictions(mGoogleApiClient, constraint.toString(), mBounds, mPlaceFilter);
                 AutocompletePredictionBuffer autocompletePredictions = results
                         .await(60, TimeUnit.SECONDS);
 

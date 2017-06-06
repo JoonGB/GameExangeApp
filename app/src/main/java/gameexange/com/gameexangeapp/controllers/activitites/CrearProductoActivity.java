@@ -46,6 +46,8 @@ import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 import gameexange.com.gameexangeapp.models.Videojuego;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback, OnMapReadyCallback {
 
