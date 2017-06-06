@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gameexange.com.gameexangeapp.R;
@@ -50,12 +51,12 @@ public class ChatListActivity extends AppCompatActivity implements ChatCallback 
                 chatsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (conversacions.get(i).getId() != null) {
-                    Intent intent = new Intent(ChatListActivity.this, ChatDetalleActivity.class);
-                    intent.putExtra("abrirChat", true);
-                    intent.putExtra("chat", conversacions.get(i));
-                    startActivity(intent);
-                }
+                        if (conversacions.get(i).getId() != null) {
+                            Intent intent = new Intent(ChatListActivity.this, ChatDetalleActivity.class);
+                            intent.putExtra("abrirChat", true);
+                            intent.putExtra("chat", conversacions.get(i).getId());
+                            startActivity(intent);
+                        }
                     }
                 });
             } else {

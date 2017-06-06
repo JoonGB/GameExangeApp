@@ -92,6 +92,31 @@ public class ChatManager {
         });
     }
 
+    public synchronized void getAllChatMensajesById(final ChatCallback chatCallback, Long idchat) {
+        Call<List<Mensaje>> call = chatService.getAllChatMensajesById(LoginManager.getInstance().getBearerToken(), idchat);
+
+        call.enqueue(new Callback<List<Mensaje>>() {
+            @Override
+            public void onResponse(Call<List<Mensaje>> call, Response<List<Mensaje>> response) {
+                mensajeList = response.body();
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    chatCallback.onSuccessMensajesList(mensajeList);
+
+                } else {
+                    chatCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Mensaje>> call, Throwable t) {
+                Log.e("ChatManager->", t.toString());
+                chatCallback.onFailure(t);
+            }
+        });
+    }
+
     public synchronized void crearNuevoChat(final ChatCallback chatCallback, Conversacion conversacion) {
         Call<Conversacion> call = chatService.crearNuevoChat(LoginManager.getInstance().getBearerToken(), conversacion);
 
