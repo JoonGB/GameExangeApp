@@ -50,6 +50,14 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         tvLoginUsuario = (TextView) headerView.findViewById(R.id.tvLoginUsuario);
         tvEmailUsuario = (TextView) headerView.findViewById(R.id.tvEmailUsuario);
 
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BaseDrawerActivity.this, PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
+
 /*
         List<Videojuego> videojuegos = new ArrayList<>();
         /*Videojuego nuevoVideojuego = new Videojuego();

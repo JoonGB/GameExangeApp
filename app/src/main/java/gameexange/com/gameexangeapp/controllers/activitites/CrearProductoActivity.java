@@ -18,6 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.text.Line;
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +37,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
+import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
@@ -37,11 +47,12 @@ import gameexange.com.gameexangeapp.models.Producto;
 import gameexange.com.gameexangeapp.models.Videojuego;
 
 
-public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback {
+public class CrearProductoActivity extends AppCompatActivity implements ProductoCallback, OnMapReadyCallback {
 
     private final static int SELECT_PHOTO = 1;
     private final static int CAPTURE_PHOTO = 2;
     private final static int MY_CHILD_ACTIVITY = 3;
+    private final static int LOCALIZACION_ACTIVITY = 4;
 
     private EditText etNombreProducto;
     private EditText etPrecioProducto;
@@ -66,6 +77,10 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
 
     private List<Foto> fotoList;
 
+    private GoogleMap mMap;
+    private Double latitud;
+    private Double longitud;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +101,7 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
 
         llBuscadorItem = (LinearLayout) findViewById(R.id.llBuscadorItem);
         ivVideojuego = (ImageView) findViewById(R.id.imagenVideojuego);
-        tvNombreVideojuego = (TextView) findViewById(R.id.nombreVideojuego);
+        tvNombreVideojuego = (TextView) findViewById(R.id.tvNombreVideojuego);
 
         llBuscadorItem.setVisibility(View.INVISIBLE);
 
@@ -121,6 +136,36 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             @Override
             public void onClick(View v) {
                crearProducto();
+            }
+        });
+
+        latitud = 41.3850639;
+        longitud = 2.1734034999999494;
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        MarkerOptions marker = new MarkerOptions()
+                .position(new LatLng(41.3850639, 2.1734034999999494))
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
+        mMap.addMarker(marker);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(41.3850639, 2.1734034999999494)));
+        mMap.getUiSettings().setScrollGesturesEnabled(false);
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Intent i = new Intent(CrearProductoActivity.this, ObtenerLocalizacion.class);
+                startActivityForResult(i, LOCALIZACION_ACTIVITY);
+            }
+        });
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                return true;
             }
         });
     }
@@ -158,6 +203,7 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
                     FotoPagerAdapter fotoPagerAdapter = new FotoPagerAdapter(this, fotoList);
                     viewPagerProducto.setAdapter(fotoPagerAdapter);
                 }
+                break;
             }
             case (SELECT_PHOTO): {
                 if (resultCode == RESULT_OK) {
@@ -184,6 +230,21 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
                         viewPagerProducto.setAdapter(fotoPagerAdapter);
                     }
                 }
+                break;
+            }
+            case (LOCALIZACION_ACTIVITY): {
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    latitud = extras.getDouble("latitude");
+                    longitud = extras.getDouble("longitude");
+                    mMap.clear();
+                    MarkerOptions marker = new MarkerOptions()
+                            .position(new LatLng(latitud, longitud))
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker));
+                    mMap.addMarker(marker);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(latitud, longitud)));
+                }
+                break;
             }
         }
     }
@@ -257,6 +318,8 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             producto.setNombre(etNombreProducto.getText().toString());
             producto.setDescripcion(etDescripcionProducto.getText().toString());
             producto.setPrecio(Double.parseDouble(etPrecioProducto.getText().toString()));
+            producto.setLatitud(latitud);
+            producto.setLongitud(longitud);
             producto.setVideojuego(videojuego.getId());
             Set<Foto> set = new HashSet<>(fotoList);
             producto.setFotos(set);

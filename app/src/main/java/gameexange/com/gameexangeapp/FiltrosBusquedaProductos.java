@@ -1,23 +1,17 @@
 package gameexange.com.gameexangeapp;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,10 +20,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.vision.text.Text;
 import com.squareup.picasso.Picasso;
 
-import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.controllers.activitites.BusquedaVideojuego;
 import gameexange.com.gameexangeapp.models.Videojuego;
 
@@ -82,7 +74,7 @@ public class FiltrosBusquedaProductos extends AppCompatActivity implements OnMap
         llBuscadorItem = (LinearLayout) findViewById(R.id.llBuscadorItem);
         ivVideojuego = (ImageView) findViewById(R.id.imagenVideojuego);
         tvNombreVideojuego = (TextView) findViewById(R.id.tvNombreVideojuego);
-        btnFiltroVideojuego = (Button) findViewById(R.id.btnFiltroVideojuego);
+        btnFiltroVideojuego = (Button) findViewById(R.id.btnEscogerVideojuego);
         btnFiltroVideojuego.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

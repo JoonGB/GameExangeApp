@@ -48,7 +48,7 @@ public class UsuarioManager {
         call.enqueue(new Callback<UserExt>() {
             @Override
             public void onResponse(Call<UserExt> call, Response<UserExt> response) {
-                Log.e("UserManager->", response.body().toString());
+                //Log.e("UserManager->", response.body().toString());
                 UserExt userExt = response.body();
                 int code = response.code();
 
