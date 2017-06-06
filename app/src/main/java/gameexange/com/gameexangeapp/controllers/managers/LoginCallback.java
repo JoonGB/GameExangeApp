@@ -1,5 +1,6 @@
 package gameexange.com.gameexangeapp.controllers.managers;
 
+import gameexange.com.gameexangeapp.models.UserExt;
 import gameexange.com.gameexangeapp.models.UserToken;
 
 public interface LoginCallback {

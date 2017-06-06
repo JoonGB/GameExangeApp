@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.text.Line;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -82,6 +83,10 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
         btnCrearProducto = (Button) findViewById(R.id.btnCrearProducto);
         tvErrorFotoProducto = (TextView) findViewById(R.id.tv_error_fotos);
         tvErrorVideojuegoProducto = (TextView) findViewById(R.id.tv_error_videojuego);
+
+        llBuscadorItem = (LinearLayout) findViewById(R.id.llBuscadorItem);
+        ivVideojuego = (ImageView) findViewById(R.id.imagenVideojuego);
+        tvNombreVideojuego = (TextView) findViewById(R.id.nombreVideojuego);
 
         llBuscadorItem.setVisibility(View.INVISIBLE);
 
@@ -255,7 +260,6 @@ public class CrearProductoActivity extends AppCompatActivity implements Producto
             producto.setVideojuego(videojuego.getId());
             Set<Foto> set = new HashSet<>(fotoList);
             producto.setFotos(set);
-
 
             ProductoManager.getInstance().crearProducto(CrearProductoActivity.this, producto);
         }

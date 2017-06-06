@@ -108,7 +108,6 @@ public class RegistroActivity extends AppCompatActivity implements RegistroCallb
             user.setPassword(password1);
             RegistroManager.getInstance().Register(RegistroActivity.this,user);
         }
-
     }
 
 

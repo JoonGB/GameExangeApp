@@ -1,8 +1,11 @@
 package gameexange.com.gameexangeapp.controllers.activitites;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,15 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import gameexange.com.gameexangeapp.FiltrosBusquedaProductos;
 import gameexange.com.gameexangeapp.ObtenerLocalizacion;
 import gameexange.com.gameexangeapp.R;
 import gameexange.com.gameexangeapp.ResultadosBusqueda;
+import gameexange.com.gameexangeapp.controllers.managers.UsuarioCallback;
+import gameexange.com.gameexangeapp.controllers.managers.UsuarioManager;
+import gameexange.com.gameexangeapp.models.UserExt;
+import gameexange.com.gameexangeapp.models.Videojuego;
 
-public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, UsuarioCallback {
     private View view;
+
+    private ImageView ivUsuario;
+    private TextView tvLoginUsuario;
+    private TextView tvEmailUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +43,12 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+        NavigationView header = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = header.getHeaderView(0);
+        ivUsuario = (ImageView) headerView.findViewById(R.id.ivUsuario);
+        tvLoginUsuario = (TextView) headerView.findViewById(R.id.tvLoginUsuario);
+        tvEmailUsuario = (TextView) headerView.findViewById(R.id.tvEmailUsuario);
 
 /*
         List<Videojuego> videojuegos = new ArrayList<>();
@@ -70,6 +90,8 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        UsuarioManager.getInstance().getUsuarioExtByLogin(BaseDrawerActivity.this);
     }
 
     @Override
@@ -113,7 +135,10 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.nav_ajustes) {
             Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_compartir) {
-            Toast.makeText(this, "Gracias por compartir", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, "Descárgate Gameexchange! Muy pronto en Play Store.");
+            startActivity(Intent.createChooser(intent, "Compartir con"));
         } else if (id == R.id.nav_busqueda_videojuegos) {
             Intent intent = new Intent(this, BusquedaVideojuego.class);
             startActivity(intent);
@@ -128,5 +153,24 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSuccessUserExt(UserExt userExt) {
+        if (userExt.getFoto() != null) {
+            String fotoUsuario = userExt.getFoto();
+            byte[] imageAsBytes = Base64.decode(fotoUsuario, Base64.DEFAULT);
+            ivUsuario.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+        } else {
+            ivUsuario.setImageResource(R.drawable.logo);
+        }
+
+        tvLoginUsuario.setText(userExt.getUser().getLogin());
+        tvEmailUsuario.setText(userExt.getUser().getEmail());
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
     }
 }
