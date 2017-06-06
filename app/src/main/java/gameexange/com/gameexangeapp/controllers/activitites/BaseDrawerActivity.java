@@ -134,14 +134,8 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_mis_productos) {
-            Toast.makeText(this, "Mis productos", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_videojuegos_deseados) {
-            Toast.makeText(this, "¿Qué deseas?", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_mis_chats) {
+        if (id == R.id.nav_mis_chats) {
             startActivity(new Intent(BaseDrawerActivity.this, ChatListActivity.class));
-        } else if (id == R.id.nav_ajustes) {
-            Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_compartir) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -152,9 +146,6 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
             startActivity(intent);
         } else if (id == R.id.nav_localizacion) {
             Intent intent = new Intent(this, ObtenerLocalizacion.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_productos) {
-            Intent intent = new Intent(this, ResultadosBusqueda.class);
             startActivity(intent);
         }
 
