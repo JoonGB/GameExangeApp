@@ -48,9 +48,13 @@ public class UsuarioManager {
         call.enqueue(new Callback<UserExt>() {
             @Override
             public void onResponse(Call<UserExt> call, Response<UserExt> response) {
-                Log.e("UserManager->", response.body().toString());
+                //Log.e("UserManager->", response.body().toString());
                 UserExt userExt = response.body();
                 int code = response.code();
+
+                if (userExt == null) {
+                    usuarioCallback.onFailure(new Throwable("ERROR " + code + ", " + response.raw().message()));
+                }
 
                 if (code == 200 || code == 201) {
 
