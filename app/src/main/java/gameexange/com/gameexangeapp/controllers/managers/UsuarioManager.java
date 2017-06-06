@@ -52,6 +52,10 @@ public class UsuarioManager {
                 UserExt userExt = response.body();
                 int code = response.code();
 
+                if (userExt == null) {
+                    usuarioCallback.onFailure(new Throwable("ERROR " + code + ", " + response.raw().message()));
+                }
+
                 if (code == 200 || code == 201) {
 
                     usuarioCallback.onSuccessUserExt(userExt);
