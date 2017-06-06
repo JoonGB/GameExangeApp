@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -50,7 +51,7 @@ public class BaseDrawerActivity extends AppCompatActivity implements NavigationV
         tvLoginUsuario = (TextView) headerView.findViewById(R.id.tvLoginUsuario);
         tvEmailUsuario = (TextView) headerView.findViewById(R.id.tvEmailUsuario);
 
-        header.setOnClickListener(new View.OnClickListener() {
+        headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BaseDrawerActivity.this, PerfilActivity.class);

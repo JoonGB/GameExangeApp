@@ -81,6 +81,10 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
             if (extras.getBoolean("productoCreado")) {
                 Toast.makeText(this, "El producto se ha creado correctamente.", Toast.LENGTH_SHORT).show();
             }
+
+            if (extras.getBoolean("errorUsuario")) {
+                Toast.makeText(this, "Ha ocurrido un error al cargar tu perfil.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -63,6 +63,7 @@
         </activity>
         <activity android:name=".controllers.activitites.ChatListActivity" />
         <activity android:name=".controllers.activitites.ChatDetalleActivity" />
+        <activity android:name=".controllers.activitites.PerfilActivity" />
 
 
         <!--
