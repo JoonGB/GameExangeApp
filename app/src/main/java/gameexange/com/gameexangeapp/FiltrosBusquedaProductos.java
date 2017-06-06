@@ -97,6 +97,8 @@ public class FiltrosBusquedaProductos extends AppCompatActivity implements OnMap
 
 
         // Filtro localización
+        latitud = 41.3850639;
+        longitud = 2.1734034999999494;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -183,6 +185,7 @@ public class FiltrosBusquedaProductos extends AppCompatActivity implements OnMap
                 etPrecioMax.setText("");
                 latitud = 41.3850639;
                 longitud = 2.1734034999999494;
+
                 mMap.clear();
                 MarkerOptions marker = new MarkerOptions()
                         .position(new LatLng(latitud, longitud))
@@ -203,9 +206,7 @@ public class FiltrosBusquedaProductos extends AppCompatActivity implements OnMap
             public void onClick(View v) {
                 Intent intent = new Intent(FiltrosBusquedaProductos.this, ResultadosBusqueda.class);
                 intent.putExtra("busquedaFiltros", etBusquedaFiltros.getText().toString());
-                if(busquedaVideojuego == null) {
-                    intent.putExtra("busquedaVideojuego", 0);
-                } else {
+                if(busquedaVideojuego != null) {
                     intent.putExtra("busquedaVideojuego", busquedaVideojuego.getId());
                 }
                 if (etPrecioMin.getText().toString().equals("")) {

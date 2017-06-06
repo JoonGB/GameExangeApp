@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,13 +27,15 @@ import android.widget.Toast;
 import java.util.List;
 
 import gameexange.com.gameexangeapp.R;
+import gameexange.com.gameexangeapp.ResultadosBusqueda;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoCallback;
 import gameexange.com.gameexangeapp.controllers.managers.ProductoManager;
 import gameexange.com.gameexangeapp.models.Foto;
 import gameexange.com.gameexangeapp.models.Producto;
 
 public class ProductoListActivity extends BaseDrawerActivity implements ProductoCallback {
-    private GridView productosGrid;
+    RecyclerView recyclerView;
+    ProductosAdapter adapter;
     LayoutInflater inflater;
     LinearLayout linearLayout;
 
@@ -49,11 +53,13 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
         if (productos.size() > 0) {
             inflater.inflate(R.layout.activity_products, linearLayout);
 
-            productosGrid = (GridView) findViewById(R.id.grid1);
+            recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-            ProductoListAdapter adapter = new ProductoListAdapter(this, productos);
-            productosGrid.setAdapter(adapter);
-            productosGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            adapter = new ProductosAdapter(ProductoListActivity.this, productos);
+            recyclerView.setAdapter(adapter);
+            StaggeredGridLayoutManager mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+            /*productosGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     if (productos.get(i).getId() != null) {
@@ -62,7 +68,7 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
                         startActivity(intent);
                     }
                 }
-            });
+            });*/
         } else {
             inflater.inflate(R.layout.productos_nohayproductos, linearLayout);
         }
@@ -100,61 +106,67 @@ public class ProductoListActivity extends BaseDrawerActivity implements Producto
         Log.e("ProductoListActivity->", t.getMessage());
     }
 
-    public class ProductoListAdapter extends BaseAdapter {
+
+
+    class ProductosAdapter extends RecyclerView.Adapter<ProductoHolder> {
         private Context context;
-        private List<Producto> productosList;
-        private Producto producto;
+        private List<Producto> productos;
+        LayoutInflater inflater;
 
-        public ProductoListAdapter(Context context, List<Producto> productosList) {
+        public ProductosAdapter (Context context, List<Producto> productos) {
             this.context = context;
-            this.productosList = productosList;
-        }
-
-        @Override public int getCount() {
-            return productosList.size();
-        }
-        @Override public Object getItem(int position) {
-            return productosList.get(position);
-        }
-        @Override public long getItemId(int position) {
-            return productosList.get(position).getId();
-        }
-
-        private class ViewHolder {
-            private ImageView imImagen;
-            private TextView tvNombre;
-            private TextView tvPrecio;
+            this.productos = productos;
+            inflater = LayoutInflater.from(context);
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup viewGroup) {
-            ViewHolder holder;
-            if (view == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = inflater.inflate(R.layout.products_item, viewGroup, false);
-                holder = new ViewHolder();
-                holder.tvNombre = (TextView) view.findViewById(R.id.tvNombre);
-                holder.tvPrecio = (TextView) view.findViewById(R.id.tvPrecio);
-                holder.imImagen = (ImageView) view.findViewById(R.id.ivProducto);
+        public ProductoHolder onCreateViewHolder(ViewGroup parent, int position) {
+            View view = inflater.inflate(R.layout.producto_item, parent, false);
+            ProductoHolder holder = new ProductoHolder(view);
+            return holder;
+        }
 
-                view.setTag(holder);
-            } else {
-                holder = (ViewHolder) view.getTag();
-            }
-
-            producto = productosList.get(position);
-            holder.tvNombre.setText(producto.getNombre());
-            holder.tvPrecio.setText(String.valueOf(productosList.get(position).getPrecio()) + " €");
-            if (producto.getFotoPrincipal() != null) {
-                String fotoprincipal = producto.getFotoPrincipal().getFoto();
+        @Override
+        public void onBindViewHolder(ProductoHolder holder, final int position) {
+            holder.tvPrecio.setText(productos.get(position).getPrecio().toString()+"€");
+            holder.tvNombre.setText(productos.get(position).getNombre());
+            if (productos.get(position).getFotoPrincipal() != null) {
+                String fotoprincipal = productos.get(position).getFotoPrincipal().getFoto();
                 byte[] imageAsBytes = Base64.decode(fotoprincipal, Base64.DEFAULT);
-                holder.imImagen.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                holder.imImagen.setMaxWidth(80);
+                holder.ivProducto.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
             } else {
-                holder.imImagen.setImageResource(R.drawable.logo);
+                holder.ivProducto.setImageResource(R.drawable.logo);
             }
-    Log.e("ProductListAdapter->", producto.toString());
-            return view;
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (productos.get(position).getId() != null) {
+                        Intent intent = new Intent(ProductoListActivity.this, ProductoDetalleActivity.class);
+                        intent.putExtra("producto", productos.get(position).getId());
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return productos.size();
+        }
+    }
+
+
+    class ProductoHolder extends RecyclerView.ViewHolder{
+        ImageView ivProducto;
+        TextView tvNombre;
+        TextView tvPrecio;
+
+        public ProductoHolder(View itemView) {
+            super(itemView);
+            ivProducto = (ImageView) itemView.findViewById(R.id.ivProducto);
+            tvNombre = (TextView) itemView.findViewById(R.id.tvNombre);
+            tvPrecio = (TextView) itemView.findViewById(R.id.tvPrecio);
         }
     }
 }

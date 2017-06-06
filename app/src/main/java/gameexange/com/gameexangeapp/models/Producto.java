@@ -15,6 +15,8 @@ public class Producto implements Parcelable {
     private String nombre;
     private Long videojuego;
     private User usuario;
+    private Double latitud;
+    private Double longitud;
 
     private Set<Foto> fotos = new HashSet<>();
     private Set<Venta> ventas = new HashSet<>();
@@ -31,6 +33,8 @@ public class Producto implements Parcelable {
         precio = in.readDouble();
         nombre = in.readString();
         videojuego = in.readLong();
+        latitud = in.readDouble();
+        longitud = in.readDouble();
     }
 
     public static final Creator<Producto> CREATOR = new Creator<Producto>() {
@@ -105,6 +109,22 @@ public class Producto implements Parcelable {
     }
     public void setVideojuego(Long videojuego) {
         this.videojuego = videojuego;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 
     public User getUsuario() {
@@ -186,10 +206,12 @@ public class Producto implements Parcelable {
                 ", nombre='" + nombre + '\'' +
                 ", videojuego=" + videojuego +
                 ", usuario=" + usuario +
-                ", userExt=" + usuarioext +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
                 ", fotos=" + fotos +
                 ", ventas=" + ventas +
                 ", fotoPrincipal=" + fotoPrincipal +
+                ", usuarioext=" + usuarioext +
                 '}';
     }
 
@@ -206,5 +228,7 @@ public class Producto implements Parcelable {
         parcel.writeDouble(precio);
         parcel.writeString(nombre);
         parcel.writeLong(videojuego);
+        parcel.writeDouble(latitud);
+        parcel.writeDouble(latitud);
     }
 }
